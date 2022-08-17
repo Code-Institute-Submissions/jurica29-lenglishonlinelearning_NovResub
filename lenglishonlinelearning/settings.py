@@ -9,9 +9,8 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +25,7 @@ SECRET_KEY = 'django-insecure-hu=4koa@6+^761-2=7sojg0-2euboq_+96nq^wpu4^2ys^alv#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+CSRF_TRUSTED_ORIGINS = ['https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu61.gitpod.io']
 
 # Application definition
 
@@ -40,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'baseapp',
 ]
+
+# Added so that admin page can work
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
