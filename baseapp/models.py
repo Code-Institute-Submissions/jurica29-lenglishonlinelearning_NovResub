@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 
 CATEGORY_CHOICES = {
-    ('G', 'Group'),
-    ('I', 'Individual')
+    ('G', 'Group lesson'),
+    ('I', 'Individual lesson')
 }
 
 LABEL_CHOICES = {
