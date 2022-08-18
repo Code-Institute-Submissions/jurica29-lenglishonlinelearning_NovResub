@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hu=4koa@6+^761-2=7sojg0-2euboq_+96nq^wpu4^2ys^alv#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu61.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu62.gitpod.io']
 
 # Application definition
 
@@ -119,6 +119,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = (
+    os.path.join(BASE_DIR, 'uploads')
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
