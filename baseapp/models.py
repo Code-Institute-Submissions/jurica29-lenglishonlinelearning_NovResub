@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from django.shortcuts import reverse
 
 CATEGORY_CHOICES = {
     ('G', 'Group lesson'),
@@ -13,6 +12,7 @@ LABEL_CHOICES = {
 }
 
 class Item(models.Model):
+    """Custom item model with below fields"""
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField()
@@ -23,4 +23,11 @@ class Item(models.Model):
     image = models.ImageField()
 
     def __str__(self):
+        """Function enables display of the item title"""
         return self.title
+
+    def get_item_url(self):
+        """Function enables display of product detail page"""
+        return reverse('baseapp:detail', kwargs={
+            'slug':self.slug
+        })

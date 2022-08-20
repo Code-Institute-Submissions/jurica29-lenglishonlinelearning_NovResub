@@ -11279,9 +11279,16 @@ textarea.form-control-lg {
   }
 }
 
+/* Image carousel style */ 
 .carousel img {
   height: 500px;
   width: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+/* Style for image on product page */ 
+#productimage {
+  max-height: 300px;
+  width: auto;
 }

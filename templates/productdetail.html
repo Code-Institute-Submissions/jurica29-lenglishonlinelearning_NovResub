@@ -1,36 +1,39 @@
+<!-- Product detail page -->
 {% extends 'base.html' %}
 
 {% block title %} {{ object.title }} {% endblock title %}
 
 {% block content %}
-
-<!-- Section-->
+{% load static %}
 <section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div class="card shadow h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="{{ object.image.url }}" alt="image" />
+    <div class="container px-5 px-lg-5 mt-5">
+        <div class="row gx-4 gx-md-5 justify-content-center">
+            <div class="col-md-4 mb-5">
+                <!-- Product image-->
+                <img id="productimage" class="card-img-top p-2 shadow h-200"" src="{{ object.image.url }}" alt="image" />
+            </div>
                     <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">{{ item.title }}</h5>
+                    <div class="col-md-8 mb-5">
+                        <h5 class="fw-bolder">{{ item.title }}</h5>
                             <!-- Product price-->
                             <p>€{{ item.price }}</p>
 
-                            <p class="btn btn-success btn-sm">{{ item.get_category_display }}</p>
-                        </div>
-                    </div>
-                    <!-- Product actions-->
+                            <span class="badge rounded-pill bg-info">{{ item.get_category_display }}</span>
+
+                            <span class="badge rounded-pill bg-info">{{ item.get_label_display }}</span>
+
+                            <p>{{ item.description }}</p>
+
+                        <!-- Product actions -->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                        <div class="text-center">
+                            <a class="btn btn-outline-dark mt-auto me-4" href="{% url 'baseapp:home' %}">Continue shopping</a>
+                            <a class="btn btn-outline-dark mt-auto" href="">Add to cart<i class="bi-cart-fill me-1"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
 {% endblock %}

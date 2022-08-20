@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Item
 from django.views.generic import View, DetailView, ListView
-# Create your views here.
+# Views for pages
 
 class HomeView(ListView):
     model = Item
