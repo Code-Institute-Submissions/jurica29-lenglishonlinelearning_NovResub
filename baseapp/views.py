@@ -5,7 +5,7 @@ from django.views.generic import View, DetailView, ListView
 
 class HomeView(ListView):
     model = Item
-    paginate_by = 6
+    paginate_by = 8
     template_name = 'home.html'
 
 class ProductDetailView(DetailView):
