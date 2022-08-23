@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'baseapp',
+    'accounts',
 ]
 
 # Added so that admin page can work

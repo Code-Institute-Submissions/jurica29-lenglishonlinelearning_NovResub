@@ -23,6 +23,7 @@ from lenglishonlinelearning import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('baseapp.urls')),
+    path('accounts/', include('accounts.urls'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()
