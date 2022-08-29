@@ -46,12 +46,12 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#!">My Orders</a></li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Sign Out</a></li>
+                            <li><a class="dropdown-item" href="">Sign Out</a></li>
                         </ul>
                     </li>
 
                     {% else %}
-                    <li class="nav-item"><a class="btn btn-outline-dark" aria-current="page" href="{% url 'accounts:login' %}">Sign In</a>
+                    <li class="nav-item"><a class="btn btn-outline-dark" aria-current="page" href="">Sign In</a>
                     </li>
                     {% endif %}
                     </ul>
