@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hu=4koa@6+^761-2=7sojg0-2euboq_+96nq^wpu4^2ys^alv#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu62.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu63.gitpod.io']
 
 # Application definition
 
@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'widget_tweaks',
     'baseapp',
-    'accounts',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 # Added so that admin page can work
@@ -70,6 +74,14 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'lenglishonlinelearning.wsgi.application'
@@ -119,6 +131,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 STATIC_URL = 'static/'
 

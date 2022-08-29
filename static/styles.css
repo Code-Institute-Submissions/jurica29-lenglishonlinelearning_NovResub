@@ -1,7 +1,10 @@
 @charset "UTF-8";
 /*!
 CSS code taken and adapted from: Shop Homepage v5.0.5 (https://startbootstrap.com/template/shop-homepage)
+CSS credits go to the above template creator
  */
+
+ /* Root elements setup/style */ 
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -55,6 +58,8 @@ CSS code taken and adapted from: Shop Homepage v5.0.5 (https://startbootstrap.co
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
 }
+
+/* Style setup for the various website elements and screen sizes start here */ 
 
 *,
 *::before,
@@ -11292,4 +11297,3 @@ textarea.form-control-lg {
   max-height: 300px;
   width: auto;
 }
-
