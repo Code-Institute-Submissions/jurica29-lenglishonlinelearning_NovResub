@@ -1,21 +1,61 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}Sign Up{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<body>
+  <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6">
+            <div class="card bg-white">
+              <div class="card-body p-5 shadow-lg">
+                <form class="mb-3 mt-md-4">
+                  <h2 class="fw-bold mb-2 text-uppercase text-center">CREATE YOUR ACCOUNT</h2>
+                  <p class="mb-5 text-center">Please populate the fields below and sign up to create account.</p>
+                  <div class="mb-3">
+                    <label for="email" class="form-label ">Email address</label>
+                    <input class="form-control" type="email" name="email" placeholder="e-mail address" autocomplete="email" class="textinput textInput" required="" id="id_email">
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label ">Confirm your email address</label>
+                    <input class="form-control" type="email" name="email2" placeholder="e-mail address again" class="textinput textInput" required="" id="id_email2">
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label ">Username</label>
+                    <input class="form-control" type="text" name="username" placeholder="Username" autocomplete="username" minlength="4" maxlength="150" class="textinput textInput" required="" id="id_username">
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label ">Password</label>
+                    <input class="form-control" type="password" name="password1" placeholder="Password" autocomplete="new-password" class="textinput textInput" required="" id="id_password1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label ">Confirm your password</label>
+                    <input class="form-control" type="password" name="password2" placeholder="Password again" autocomplete="new-password" class="textinput textInput" required="" id="id_password2">
+                  </div>
+                  <div class="d-grid">
+                    <button class="btn btn-outline-dark" type="submit">{% trans "Sign Up" %}</button>
+                  </div>
+                </form>
+                <div>
+                  <p class="mb-0  text-center">Already have an account? <a href="{% url 'account_login' %}" class="text-primary fw-bold">{% trans "Sign In" %}</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
 
 {% endblock %}
+
