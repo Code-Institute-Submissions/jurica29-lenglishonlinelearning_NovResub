@@ -11,7 +11,7 @@
 <body>
   <form class="login" method="POST" action="{% url 'account_login' %}">
     {% csrf_token %}
-    <div class="vh-100 d-flex justify-content-center align-items-center">
+    <div class="mh-100 d-flex justify-content-center align-items-center">
       <div class="container">
         <div class="row d-flex justify-content-center">
           <div class="col-12 col-md-8 col-lg-6">
@@ -21,11 +21,11 @@
                   <h2 class="fw-bold mb-2 text-uppercase text-center">SIGN IN</h2>
                   <p class="mb-5 text-center">Please enter your login and password!</p>
                   <div class="mb-3">
-                    <label for="email" class="form-label ">Email address</label>
+                    <label for="email" class="form-label ">Email address/Username:</label>
                     <input class="form-control" type="text" name="login" placeholder="Username or e-mail" autocomplete="email" class="textinput textInput" required="" id="id_login">
                   </div>
                   <div class="mb-3">
-                    <label for="password" class="form-label ">Password</label>
+                    <label for="password" class="form-label ">Password:</label>
                     <input class="form-control" type="password" name="password" placeholder="Password" autocomplete="current-password" class="textinput textInput" required="" id="id_password">
                   </div>
                   <div class="d-grid">

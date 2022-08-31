@@ -11,7 +11,7 @@
 <body>
   <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
     {% csrf_token %}
-    <div class="vh-100 d-flex justify-content-center align-items-center">
+    <div class="mh-100 d-flex justify-content-center align-items-center">
       <div class="container">
         <div class="row d-flex justify-content-center">
           <div class="col-12 col-md-8 col-lg-6">
@@ -21,23 +21,23 @@
                   <h2 class="fw-bold mb-2 text-uppercase text-center">CREATE YOUR ACCOUNT</h2>
                   <p class="mb-5 text-center">Please populate the fields below and sign up to create account.</p>
                   <div class="mb-3">
-                    <label for="email" class="form-label ">Email address</label>
+                    <label for="email" class="form-label ">Email address:</label>
                     <input class="form-control" type="email" name="email" placeholder="e-mail address" autocomplete="email" class="textinput textInput" required="" id="id_email">
                   </div>
                   <div class="mb-3">
-                    <label for="email" class="form-label ">Confirm your email address</label>
+                    <label for="email" class="form-label ">Confirm your email address:</label>
                     <input class="form-control" type="email" name="email2" placeholder="e-mail address again" class="textinput textInput" required="" id="id_email2">
                   </div>
                   <div class="mb-3">
-                    <label for="password" class="form-label ">Username</label>
+                    <label for="password" class="form-label ">Username:</label>
                     <input class="form-control" type="text" name="username" placeholder="Username" autocomplete="username" minlength="4" maxlength="150" class="textinput textInput" required="" id="id_username">
                   </div>
                   <div class="mb-3">
-                    <label for="password" class="form-label ">Password</label>
+                    <label for="password" class="form-label ">Password:</label>
                     <input class="form-control" type="password" name="password1" placeholder="Password" autocomplete="new-password" class="textinput textInput" required="" id="id_password1">
                   </div>
                   <div class="mb-3">
-                    <label for="password" class="form-label ">Confirm your password</label>
+                    <label for="password" class="form-label ">Confirm your password:</label>
                     <input class="form-control" type="password" name="password2" placeholder="Password again" autocomplete="new-password" class="textinput textInput" required="" id="id_password2">
                   </div>
                   <div class="d-grid">
