@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Item
+from django.contrib import messages
 from django.views.generic import View, DetailView, ListView
 # Views for pages
 
