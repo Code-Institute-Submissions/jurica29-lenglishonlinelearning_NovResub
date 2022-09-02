@@ -19,7 +19,7 @@
                             <!-- Product name-->
                             <h5 class="fw-bolder">{{ item.title }}</h5>
                             <!-- Product price-->
-                            <p>€{{ item.price }}</p>
+                            <p>€{{ item.price|floatformat }}</p>
 
                             <p class="btn btn-success btn-sm">{{ item.get_category_display }}</p>
                         </div>

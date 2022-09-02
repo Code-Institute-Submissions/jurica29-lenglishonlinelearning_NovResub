@@ -16,7 +16,7 @@
                     <div class="col-md-8 mb-5">
                         <h5 class="fw-bolder">{{ item.title }}</h5>
                             <!-- Product price-->
-                            <p>€{{ item.price }}</p>
+                            <p>€{{ item.price|floatformat }}</p>
 
                             <span class="badge rounded-pill bg-info">{{ item.get_category_display }}</span>
 
