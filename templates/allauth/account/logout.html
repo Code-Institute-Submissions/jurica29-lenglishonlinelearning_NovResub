@@ -4,11 +4,10 @@
 
 {% load i18n %}
 
-{% block head_title %}Sign in{% endblock %}
+{% block head_title %}Sign Out{% endblock %}
 
 {% block content %}
 
-<body>
   <form method="post" action="{% url 'account_logout' %}">
     {% csrf_token %}
     <div class="mh-100 d-flex justify-content-center align-items-center">
@@ -31,7 +30,5 @@
         </div>
       </div>
   </form>
-</body>
-
 
 {% endblock %}

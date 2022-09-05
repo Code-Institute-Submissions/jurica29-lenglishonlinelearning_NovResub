@@ -8,9 +8,18 @@
 
 {% block content %}
 
-<body>
   <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
     {% csrf_token %}
+    {% if form.errors %} 
+    {% for field in form %} 
+    {% for error in field.errors %} 
+    <div class="customalert alert-danger d-flex aligns-items-center justify-content-center">
+          <strong>{{ error|escape }}</strong>
+    </div> 
+    {% endfor %} 
+    {% endfor %} 
+    {% endif %}
+    
     <div class="mh-100 d-flex justify-content-center align-items-center">
       <div class="container">
         <div class="row d-flex justify-content-center">
@@ -54,8 +63,6 @@
       </div>
     </div>
   </form>
-</body>
-
 
 {% endblock %}
 

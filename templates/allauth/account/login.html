@@ -8,9 +8,16 @@
 
 {% block content %}
 
-<body>
   <form class="login" method="POST" action="{% url 'account_login' %}">
     {% csrf_token %}
+    {% if form.non_field_errors %} 
+    <div class="customalert alert-danger d-flex aligns-items-center justify-content-center">
+    {% for error in form.non_field_errors %} 
+      <strong>{{ error }}</strong>
+    {% endfor %} 
+    </div> 
+    {% endif %}
+
     <div class="mh-100 d-flex justify-content-center align-items-center">
       <div class="container">
         <div class="row d-flex justify-content-center">
@@ -43,6 +50,5 @@
     </div>
   </form>
 </body>
-
 
 {% endblock %}
