@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "widget_tweaks",
     "baseapp",
+    "django_countries",
 ]
 
 # Added so that admin page can work
