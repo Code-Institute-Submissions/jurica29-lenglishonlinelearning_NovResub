@@ -35,6 +35,11 @@ class Item(models.Model):
             'slug':self.slug
         })
 
+    def get_add_to_cart(self):
+        return reverse('baseapp:add-to-cart', kwargs={
+            'slug': self.slug
+        })
+
 class OrderItem(models.Model):
     """Custom model for adding items to the cart"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -60,7 +65,7 @@ class Order(models.Model):
 
     def __str__(self):
         """Function enables display of the username"""
-        return self.user.name
+        return self.user.username
 
 class BillingAddress(models.Model):
     """Custom model for billing address"""
@@ -72,7 +77,7 @@ class BillingAddress(models.Model):
 
     def __str__(self):
         """Function enables display of the username"""
-        return self.user.name
+        return self.user.username
 
 class Coupon(models.Model):
     """Custom model for coupon"""
@@ -92,7 +97,7 @@ class Payment(models.Model):
 
     def __str__(self):
         """Function enables display of the username"""
-        return self.user.name
+        return self.user.username
 
 class Refund(models.Model):
     """Custom model for refund"""
