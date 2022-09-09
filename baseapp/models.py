@@ -48,8 +48,18 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
+        """Returns quantity/name"""
         return f"{self.quantity} - {self.item.title}"
- 
+
+    def total_item_price(self):
+        """Function calculates item price as per given quantity"""
+        return self.quantity * self.item.price
+
+    def final_price(self):
+        """Function calculates total price for all items"""
+        return self.quantity * self.item.price
+    
+
 class Order(models.Model):
     """Custom order model with below fields"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -66,6 +76,13 @@ class Order(models.Model):
     def __str__(self):
         """Function enables display of the username"""
         return self.user.username
+
+    def total_price(self):
+        """Total price calculation"""
+        total = 0
+        for order_item in self.items.all():
+            total += order_item.final_price()
+        return total
 
 class BillingAddress(models.Model):
     """Custom model for billing address"""

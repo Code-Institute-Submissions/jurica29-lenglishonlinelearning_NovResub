@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-hu=4koa@6+^761-2=7sojg0-2euboq_+96nq^wpu4^2ys^alv#
 DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu63.gitpod.io"
+    "https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu64.gitpod.io"
 ]
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "baseapp",
     "django_countries",
 ]
+
 
 # Added so that admin page can work
 SITE_ID = 1

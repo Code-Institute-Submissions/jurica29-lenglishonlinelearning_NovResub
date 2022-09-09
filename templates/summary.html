@@ -1,21 +1,50 @@
 <!-- Product detail page -->
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %} Summary {% endblock title %}
 
 {% block content %}
-{% load static %}
 <section class="py-5">
-    <div class="container px-5 px-lg-5 mt-5">
-        <div class="row gx-4 gx-md-5 justify-content-center">
-            <div class="col-md-4 mb-5">
+        <div class="container table-responsive">
+            <h4>Order summary:</h4>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total price</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for order_item in object.items.all %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ order_item.item.title }}</td>
+                    <td>€{{ order_item.item.price|floatformat }}</td>
+                    <td>
+                        <a href=""><i class="bi bi-dash-circle mr-2"></i></a>
+                        {{ order_item.quantity }}
+                        <a href="{% url 'baseapp:add-to-cart' order_item.item.slug %}"><i class="bi bi-plus-circle mr-2"></i></a>
+                    </td>
+                    <td>€{{ order_item.total_item_price|floatformat }}</td>
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                    <td colspan="4"><b>Order total:</b></td>
+                    <td><b>€{{ object.total_price|floatformat }}</b></td>
+                  </tr>
 
-            </div>
-            
-            <div class="col-md-8 mb-5">
-                Summary
-            </div>
-        </div>
+                  <tr>
+                    <td colspan="5"><a href="" class="btn btn-warning float-end m-4">Proceed to checkout</a>
+                    <a href="/" class="btn btn-info float-end m-4">Continue shopping</a>
+                  </td>
+                  </tr>
+
+
+                </tbody>
+              </table>
         </div>
 </section>
 

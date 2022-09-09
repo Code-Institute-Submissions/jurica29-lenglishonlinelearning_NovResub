@@ -1,6 +1,8 @@
-from allauth.account.decorators import login_required
-from django.utils import timezone
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from allauth.account.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, DetailView, ListView
 from .models import Item, Order, OrderItem
@@ -48,3 +50,19 @@ def add_to_cart(request, slug):
         order.items.add(order_item)
         messages.info(request, "Item added to your cart")
         return redirect("baseapp:summary")
+
+class OrderSummaryView(LoginRequiredMixin, View):
+    """View for order summary page"""
+    def get(self, *args, **kwargs):
+        try:
+            current_order = Order.objects.get(user=self.request.user, ordered=False)
+            context = {
+                'object': current_order
+            }
+            return render(self.request, 'summary.html', context)
+
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You do not have an active order.")
+            return redirect('/')
+
+        return render(self.request, 'summary.html', context)
