@@ -7,6 +7,7 @@
 <section class="py-5">
         <div class="container table-responsive">
             <h4>Order summary:</h4>
+            <hr>
             <table class="table">
                 <thead>
                   <tr>
@@ -24,7 +25,7 @@
                     <td>{{ order_item.item.title }}</td>
                     <td>€{{ order_item.item.price|floatformat }}</td>
                     <td>
-                        <a href=""><i class="bi bi-dash-circle mr-2"></i></a>
+                        <a href="{% url 'baseapp:remove-item' order_item.item.slug %}"><i class="bi bi-dash-circle mr-2"></i></a>
                         {{ order_item.quantity }}
                         <a href="{% url 'baseapp:add-to-cart' order_item.item.slug %}"><i class="bi bi-plus-circle mr-2"></i></a>
                     </td>

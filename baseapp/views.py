@@ -66,3 +66,48 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return redirect('/')
 
         return render(self.request, 'summary.html', context)
+
+@login_required(login_url="/accounts/login/")
+def remove_single_item(request, slug):
+    """Function for removing single item from cart"""
+    item = get_object_or_404(Item, slug=slug)
+
+    order_q = Order.objects.filter(user=request.user, ordered=False)
+
+    if order_q.exists():
+        order = order_q[0]
+    
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item = OrderItem.objects.filter(item=item, user=request.user, ordered=False)[0]
+
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+            else:
+                order.items.remove(order_item)
+
+            messages.info(request, "Cart updated")
+            return redirect("baseapp:summary")
+
+        else:
+            messages.info(request, "Item was not in your cart")
+            return redirect("baseapp:productdetail", slug=slug)
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect("baseapp:productdetail", slug=slug)
+
+class OrderSummaryView(LoginRequiredMixin, View):
+    """View for order summary page"""
+    def get(self, *args, **kwargs):
+        try:
+            current_order = Order.objects.get(user=self.request.user, ordered=False)
+            context = {
+                'object': current_order
+            }
+            return render(self.request, 'summary.html', context)
+
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You do not have an active order.")
+            return redirect('/')
+
+        return render(self.request, 'summary.html', context)
