@@ -166,3 +166,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STRIPE_SECRET_KEY = 'sk_test_51LgpuWITIadn2zy5NFEIPzHSqAnX1SMtWqOOBbmPluNSVJOmZ92weZtOKJ1jplar6wwEk33p4fcNAHdW7vAsJPdc00FWLjE6Rr'

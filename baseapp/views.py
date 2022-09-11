@@ -1,13 +1,22 @@
 from django.contrib import messages
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from allauth.account.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, DetailView, ListView
-from .models import Item, Order, OrderItem, BillingAddress
+from .models import Item, Order, OrderItem, BillingAddress, Payment
 from .forms import BillingAddressForm
+import stripe
+import random
+import string
 # Views for pages
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+def create_order_code():
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=12))
 
 class HomeView(ListView):
     """Home page view"""
@@ -169,3 +178,64 @@ class PaymentView(View):
         else:
             messages.warning(self.request, 'Please add your billing address.')
             return redirect('baseapp:billing-address')
+    
+    def post(self, *args, **kwargs):
+        order = Order.objects.get(user=self.request.user, ordered=False)
+        token = self.request.POST.get('stripeToken')
+        amount = int(order.total_price() * 100)
+
+        try:
+            charge = stripe.Charge.create(
+                amount = amount,
+                currency = 'eur',
+                source = token,
+                description = 'Payment from Lenglishonlinelearning'
+            )
+
+            payment = Payment()
+            payment.stripe_charge_id = charge['id']
+            payment.user = self.request.user
+            payment.amount = order.total_price()
+            payment.save()
+
+            order_items = order.items.all()
+            order_items.update(ordered=True)
+
+            for item in order_items:
+                item.save()
+
+            order.ordered = True
+            order.payment = payment
+
+            order.order_ref = create_order_code()
+            order.save()
+
+            messages.success(self.request, 'Congrats! You have placed your order!')
+            return redirect('/')
+
+        except stripe.error.CardError as e:
+            body = e.json_body
+            err = body.get('error', {})
+            messages.warning(self.request, f"{err.get('message')}")
+            return redirect("/")
+        except stripe.error.RateLimitError as e:
+            messages.warning(self.reqiest, "Rate Limit Error")
+        except stripe.error.InvalidRequestError as e:
+            messages.warning(self.reqiest, "Invalid paremeters")
+            print("Invalid parameters", e)
+            print("the value is: ", amount)
+            return redirect("/")
+        except stripe.error.AuthenticationError as e:
+            messages.warning(self.request, "Not authenticated")
+            return redirect("/")
+        except stripe.error.APIConnectionError as e:
+            messages.warning(self.request, "Network Error")
+            return redirect("/")
+        except stripe.error.StripeError as e:
+            messages.warning(self.request, "Something went wrong, you were not charged, please try again.")
+        except Exception as e:
+            messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
+            return redirect("/")
+
+
+        
