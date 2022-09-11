@@ -5,7 +5,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, DetailView, ListView
-from .models import Item, Order, OrderItem
+from .models import Item, Order, OrderItem, BillingAddress
+from .forms import BillingAddressForm
 # Views for pages
 
 class HomeView(ListView):
@@ -111,3 +112,48 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return redirect('/')
 
         return render(self.request, 'summary.html', context)
+
+class BillingAddressView(View):
+    """View for billing address"""
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            form = BillingAddressForm()
+            context = {
+                'form': form,
+                'order': order
+            }
+            return render(self.request, 'billing-address.html', context)
+        except ObjectDoesNotExist:
+            messages.info(self.request, 'You do not have an active order.')
+            return redirect('baseapp:summary')
+    
+    def post(self, *args, **kwargs):
+        """Function that makes billing address form work"""
+        form = BillingAddressForm(self.request.POST or None)
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            if form.is_valid():
+                street_address = form.cleaned_data.get('street_address')
+                apartment_address = form.cleaned_data.get('apartment_address')
+                country = form.cleaned_data.get('country')
+                zip_code = form.cleaned_data.get('zip_code')
+
+                billing_address = BillingAddress(
+                    user = self.request.user,
+                    street_address = street_address,
+                    apartment = apartment_address,
+                    country = country,
+                    zip = zip_code
+                )
+
+                billing_address.save()
+                order.billing_address = billing_address
+                order.save()
+
+                messages.info(self.request, "Billing address added to your order.")
+                return redirect('baseapp:summary')
+
+        except ObjectDoesNotExist:
+            messages.info(self.request, "No active order found.")
+            return redirect('baseapp:summary')
