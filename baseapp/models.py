@@ -39,6 +39,9 @@ class Item(models.Model):
         return reverse('baseapp:add-to-cart', kwargs={
             'slug': self.slug
         })
+        
+    def snip_description(self):
+        return self.description[:30] + "..."
 
 class OrderItem(models.Model):
     """Custom model for adding items to the cart"""
