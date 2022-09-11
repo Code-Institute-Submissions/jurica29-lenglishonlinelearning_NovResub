@@ -152,8 +152,20 @@ class BillingAddressView(View):
                 order.save()
 
                 messages.info(self.request, "Billing address added to your order.")
-                return redirect('baseapp:summary')
+                return redirect('baseapp:payment')
 
         except ObjectDoesNotExist:
             messages.info(self.request, "No active order found.")
             return redirect('baseapp:summary')
+
+class PaymentView(View):
+    def get(self, *args, **kwargs):
+        order = Order.objects.get(user=self.request.user, ordered=False)
+        if order.billing_address:
+            context = {
+                'order': order,
+            }
+            return render(self.request, 'payment.html', context)
+        else:
+            messages.warning(self.request, 'Please add your billing address.')
+            return redirect('baseapp:billing-address')
