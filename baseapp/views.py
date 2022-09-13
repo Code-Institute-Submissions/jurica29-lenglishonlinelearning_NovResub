@@ -11,7 +11,6 @@ from .forms import BillingAddressForm
 import stripe
 import random
 import string
-# Views for pages
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -23,6 +22,16 @@ class HomeView(ListView):
     model = Item
     paginate_by = 8
     template_name = 'home.html'
+
+class AboutView(ListView):
+    """About page view"""
+    model = Item
+    template_name = 'about.html'
+
+class ContactView(ListView):
+    """Contact page view"""
+    model = Item
+    template_name = 'contact.html'
 
 class ProductDetailView(DetailView):
     """Product detail view"""

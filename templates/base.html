@@ -35,18 +35,8 @@
                   </button>
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-1 ms-lg-2">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'baseapp:home' %}">Home</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Lessons and Courses</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular</a></li>
-                                <li><a class="dropdown-item" href="#!">New</a></li>
-                            </ul>
-                        </li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'baseapp:home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'baseapp:about' %}">About</a></li>
 
                         {% if user.is_authenticated %}
 
@@ -91,8 +81,28 @@
         {% block content %}
 
         {% endblock %}
-        <!-- Footer with social media icons -->
+        <!-- Footer with newsletter and social media icons -->
         <footer class="py-5 bg-dark">
+            <!-- Newsletter -->
+            <section class="home-newsletter mb-2">
+                <div class="container mt-1">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-8 col-md-8 col-lg-4">
+                            <div class="single">
+                                <h6 class="text-white text-center">Subscribe for updates:</h6>
+                                <div class="input-group">
+                                    <input type="email" class="form-control" placeholder="Enter your email">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-secondary" type="submit">Subscribe</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Social media icons -->
             <div class="text-center">
 
              <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook page (opens in a new tab)" class="btn btn-secondary"><i class="fab fa-facebook-f"></i>
