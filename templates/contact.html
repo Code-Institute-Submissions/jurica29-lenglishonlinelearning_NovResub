@@ -5,6 +5,33 @@
 
 {% block content %}
 
-
+<div class="container mt-3 shadow-lg p-3 mb-5 bg-body rounded">
+    <h1 class="text-center">Contact Me</h1>
+    <form class="row g-3">
+      <div class="col-md-6">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" required>
+      </div>
+      <div class="col-md-6">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" required>
+      </div>
+      <div class="col-md-8">
+        <label for="emailInfo" class="form-label">E-mail</label>
+        <input type="email" class="form-control" id="emailInfo" required>
+      </div>
+      <div class="col-md-4">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" id="phoneNumber" placeholder="+1 (415) 867-5309">
+      </div>
+      <div class="col-md-12">
+        <label for="comments" class="form-label">Type your query below</label>
+        <textarea class="form-control" id="comments" rows="3" required></textarea>
+      </div>
+      <div class="col-md-12 mb-2 text-center">
+        <button type="submit" class="btn btn-secondary">Submit</button>
+      </div>
+    </form>
+</div>
 
 {% endblock %}
