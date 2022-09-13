@@ -1,6 +1,17 @@
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
+from .models import Contact
+
+
+class Contact(forms.ModelForm):
+    """Contact form"""
+
+    class Meta:
+        """Inner class"""
+
+        model = Contact
+        fields = ("fullname", "message", "email")
 
 class BillingAddressForm(forms.Form):
     street_address = forms.CharField(widget=forms.TextInput(attrs={
