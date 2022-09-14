@@ -6,9 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, DetailView, ListView
-from .models import Item, Order, OrderItem, BillingAddress, Payment, Contact
+from .models import Item, Order, OrderItem, BillingAddress, Payment
 from .forms import BillingAddressForm
-from django import forms
 import stripe
 import random
 import string
@@ -29,38 +28,10 @@ class AboutView(ListView):
     model = Item
     template_name = 'about.html'
 
-class ContactView(ListView):
-    """Contact page view"""
-    model = Item
-    template_name = 'contact.html'
-
 class ProductDetailView(DetailView):
     """Product detail view"""
     model = Item
     template_name = 'productdetail.html'
-
-class ContactForm(forms.ModelForm):
-    """Contact form view"""
-
-    class Meta:
-        """The inner class of the model class"""
-
-        model = Contact
-        exclude = ("date_created",)
-
-def contact(request):
-    """Contact page view"""
-    if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid:
-            form.save()
-            messages.success(request, "You have successfully submitted your message!")
-
-    form = ContactForm
-
-    context = {"form": form}
-
-    return render(request, "baseapp:contact", context)
 
 @login_required(login_url="/accounts/login/")
 def add_to_cart(request, slug):
@@ -269,4 +240,3 @@ class PaymentView(View):
         except Exception as e:
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
-

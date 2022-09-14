@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "django_countries",
 ]
 
-
 # Added so that admin page can work
 SITE_ID = 1
 
