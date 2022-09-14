@@ -43,6 +43,10 @@ h1, .h1 {
   object-position: center;
 }
 
+.carouselmodifier {
+  height: 350px;
+}
+
 /* Style for image on product page */ 
 #productimage {
   max-height: 300px;
@@ -140,3 +144,4 @@ button:hover {
   -webkit-transition: box-shadow 150ms ease;
   transition: box-shadow 150ms ease;
 }
+
