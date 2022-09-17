@@ -240,3 +240,4 @@ class PaymentView(View):
         except Exception as e:
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
+
