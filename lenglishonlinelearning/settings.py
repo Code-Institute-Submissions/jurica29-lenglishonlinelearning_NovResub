@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-hu=4koa@6+^761-2=7sojg0-2euboq_+96nq^wpu4^2ys^alv#"
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = 'DEVELOPMENT' in os.environ
 
 CSRF_TRUSTED_ORIGINS = [
     "https://jurica29-lenglishonline-iqa7g6exbp0.ws-eu64.gitpod.io/"
@@ -127,10 +127,6 @@ else:
 DATABASES = {
     'default': dj_database_url.parse("postgres://yjiqwdgkdyhkkd:e276c1f36676cc2e4e75881613e4e72d7034b86fcc7797a91582ef79d8ab1d72@ec2-54-246-185-161.eu-west-1.compute.amazonaws.com:5432/d1a4j0hshgo6m8")
 }
-
-# DATABASES = {
-#     "default": dj_database_url.parse("postgres://yjiqwdgkdyhkkd:e276c1f36676cc2e4e75881613e4e72d7034b86fcc7797a91582ef79d8ab1d72@ec2-54-246-185-161.eu-west-1.compute.amazonaws.com:5432/d1a4j0hshgo6m8")
-#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
