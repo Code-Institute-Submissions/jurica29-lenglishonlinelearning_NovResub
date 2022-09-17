@@ -25,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEVELOPMENT' in os.environ
+DEBUG = True 
+# 'DEVELOPMENT' in os.environ
 
 CSRF_TRUSTED_ORIGINS = [
     "https://jurica29-lenglishonline-iqa7g6exbp0.ws-eu64.gitpod.io/"
@@ -199,15 +200,6 @@ if 'USE_AWS' in os.environ:
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
-# STATIC_URL = "static/"
-
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-
-# MEDIA_URL = "/uploads/"
-# MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
