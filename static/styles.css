@@ -50,6 +50,7 @@ h1, .h1 {
 /* Style for image on product page */ 
 #productimage {
   max-height: 300px;
+  max-width: 100%;
 }
 
 /* Bootstrap toasts CSS adapted from BoutiqueAdo */
