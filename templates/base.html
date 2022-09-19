@@ -83,18 +83,21 @@
         {% endblock %}
         <!-- Footer with newsletter and social media icons -->
         <footer class="py-5 bg-dark">
-                        <!-- Newsletter -->
+                        <!-- Newsletter using MailChimp-->
                         <section class="home-newsletter mb-2">
                             <div class="container mt-1">
                                 <div class="row justify-content-center">
-                                    <div class="col-sm-2 col-md-6 col-lg-4">
+                                    <div class="col-sm-auto col-md-auto col-lg-auto">
                                         <div class="single">
                                             <h6 class="text-white text-center">Subscribe for updates:</h6>
+                                            <form method="post" action="{% url 'baseapp:subscribeToNewsLetter' %}">
+                                            {% csrf_token %}
                                             <div class="input-group">
-                                                <input type="email" class="form-control" placeholder="Enter your email">
+                                                <input type="email" name="email" class="form-control" placeholder="Your Email">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-secondary" type="submit">Subscribe</button>
+                                                <button class="btn btn-secondary" type="submit">Subscribe</button>
                                                 </span>
+                                            </form>
                                             </div>
                                         </div>
                                     </div>

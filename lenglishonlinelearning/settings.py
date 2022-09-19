@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
-from django.contrib import messages
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 DEBUG = 'DEVELOPMENT' in os.environ
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://jurica29-lenglishonline-iqa7g6exbp0.ws-eu64.gitpod.io/"
+    "https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu64.gitpod.io"
 ]
 
 ALLOWED_HOSTS = ['lenglishonlinelearning.herokuapp.com', 'localhost']
