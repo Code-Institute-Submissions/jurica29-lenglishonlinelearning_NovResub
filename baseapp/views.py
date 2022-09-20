@@ -10,6 +10,7 @@ from .models import Item, Order, OrderItem, BillingAddress, Payment
 from .forms import BillingAddressForm
 from mailchimp_marketing import Client
 from mailchimp_marketing.api_client import ApiClientError
+import creds
 import stripe
 import random
 import string
@@ -243,8 +244,8 @@ class PaymentView(View):
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
 
-api_key = "65c4c67df32ac5adb68b45f699c5b20c-us10"
-list_id = "61f67e3277"
+api_key = creds.API_KEY
+list_id = creds.LIST_ID
  
 def subscribeToNewsLetter(request):
     '''function to manage subscriber '''
