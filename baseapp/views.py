@@ -10,14 +10,18 @@ from .models import Item, Order, OrderItem, BillingAddress, Payment
 from .forms import BillingAddressForm
 from mailchimp_marketing import Client
 from mailchimp_marketing.api_client import ApiClientError
-import creds
 import stripe
 import random
 import string
+import os
+
+if os.path.exists("env.py"):
+  import env 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def create_order_code():
+    """Creating unique code for orders"""
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=12))
 
 class HomeView(ListView):
@@ -244,8 +248,8 @@ class PaymentView(View):
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
 
-api_key = creds.API_KEY
-list_id = creds.LIST_ID
+api_key = os.getenv('API_KEY', '')
+list_id = os.getenv('LIST_ID', '')
  
 def subscribeToNewsLetter(request):
     '''function to manage subscriber '''
