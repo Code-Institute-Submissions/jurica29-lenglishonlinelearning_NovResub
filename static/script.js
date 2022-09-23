@@ -6,7 +6,7 @@ toastList.forEach(toast => {
     toast.show()
 }); 
 
-var stripe = Stripe('pk_test_51LgpuWITIadn2zy5TypE122jMncIgraef5GBjCyvRoF24w9eLjfmWzYHwAzcN7RDSF63KAQo96iNPcCJIRTItC0y00ChKOPYo8');
+var stripe = Stripe('STRIPE_PUBLIC_KEY');
  
 // Create an instance of Elements.
 var elements = stripe.elements();
