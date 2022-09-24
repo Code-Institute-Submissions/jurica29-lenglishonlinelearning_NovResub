@@ -15,10 +15,10 @@ import random
 import string
 import os
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 if os.path.exists("env.py"):
   import env 
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def create_order_code():
     """Creating unique code for orders"""
@@ -179,11 +179,13 @@ class BillingAddressView(View):
             return redirect('baseapp:summary')
 
 class PaymentView(View):
+
     def get(self, *args, **kwargs):
         order = Order.objects.get(user=self.request.user, ordered=False)
         if order.billing_address:
             context = {
                 'order': order,
+                'stripe_public_key': stripe.api_key,
             }
             return render(self.request, 'payment.html', context)
         else:
@@ -194,7 +196,8 @@ class PaymentView(View):
         order = Order.objects.get(user=self.request.user, ordered=False)
         token = self.request.POST.get('stripeToken')
         amount = int(order.total_price() * 100)
-
+        stripe.api_key = stripe.api_key
+        
         try:
             charge = stripe.Charge.create(
                 amount = amount,
