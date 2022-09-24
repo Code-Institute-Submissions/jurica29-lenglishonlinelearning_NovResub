@@ -248,6 +248,7 @@ class PaymentView(View):
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
 
+
 api_key = os.getenv('API_KEY', '')
 list_id = os.getenv('LIST_ID', '')
  

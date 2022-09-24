@@ -157,3 +157,39 @@ button:hover {
   transition: box-shadow 150ms ease;
 }
 
+.PrivateStripeElement {
+margin: 0px !important; 
+padding: 0px !important; 
+border: none !important; 
+display: block !important; 
+background: transparent !important; 
+position: relative !important; 
+opacity: 1 !important;
+}
+
+#iframe {
+  border: none !important; 
+  margin: 0px !important; 
+  padding: 0px !important; 
+  width: 1px !important; 
+  min-width: 100% !important; 
+  overflow: hidden !important; 
+  display: block !important; 
+  height: 19.2px;
+}
+
+.PrivateStripeElement-input {
+  border: none !important; 
+  display: block !important; 
+  position: absolute !important; 
+  height: 1px !important; 
+  top: 0px !important; 
+  left: 0px !important; 
+  padding: 0px !important; 
+  margin: 0px !important; 
+  width: 100% !important; 
+  opacity: 0 !important; 
+  background: transparent !important; 
+  pointer-events: none !important; 
+  font-size: 16px !important;
+}

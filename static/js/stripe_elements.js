@@ -1,11 +1,10 @@
-
 var stripe = Stripe('pk_test_51LgpuWITIadn2zy5TypE122jMncIgraef5GBjCyvRoF24w9eLjfmWzYHwAzcN7RDSF63KAQo96iNPcCJIRTItC0y00ChKOPYo8');
-
+ 
 // Create an instance of Elements.
 var elements = stripe.elements();
 
 // Custom styling can be passed to options when creating an Element.
-
+// (Note that this demo uses a wider set of styles than the guide below.)
 var style = {
   base: {
     color: '#32325d',
@@ -68,4 +67,3 @@ function stripeTokenHandler(token) {
   // Submit the form
   form.submit();
 }
-
