@@ -11,6 +11,5 @@ urlpatterns = [
     path('summary', views.OrderSummaryView.as_view(), name='summary'),
     path('billing-address', views.BillingAddressView.as_view(), name='billing-address'),
     path('payment/', views.PaymentView.as_view(), name='payment'),
-    path('subscribe', views.subscribeToNewsLetter, name="subscribeToNewsLetter"),
     path('about/', views.AboutView.as_view(), name='about')
 ]
