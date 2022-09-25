@@ -24,6 +24,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('baseapp.urls')),
     path('', include('newsletter.urls')),
+    path('', include('cart.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

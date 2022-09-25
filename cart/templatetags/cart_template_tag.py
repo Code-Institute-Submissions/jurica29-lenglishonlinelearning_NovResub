@@ -1,5 +1,5 @@
 from django import template
-from baseapp.models import Order
+from cart.models import Order
 
 register = template.Library()
 

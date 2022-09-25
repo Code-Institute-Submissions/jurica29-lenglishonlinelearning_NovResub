@@ -1,0 +1,234 @@
+from django.contrib import messages
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from allauth.account.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View, DetailView, ListView
+from baseapp.models import Item
+from .models import Order, OrderItem, BillingAddress, Payment
+from .forms import BillingAddressForm
+import stripe
+import random
+import string
+import os
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+if os.path.exists("env.py"):
+  import env 
+
+def create_order_code():
+    """Creating unique code for orders"""
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=12))
+
+@login_required(login_url="/accounts/login/")
+def add_to_cart(request, slug):
+    """Function for ordering functionality"""
+    item = get_object_or_404(Item, slug=slug)
+    order_item, created = OrderItem.objects.get_or_create(
+        item = item,
+        user = request.user,
+        ordered = False
+    )
+
+    order_q = Order.objects.filter(user=request.user, ordered=False)
+
+    if order_q.exists():
+        order = order_q[0]
+    
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item.quantity += 1
+            order_item.save()
+            messages.info(request, "Item added to your cart")
+            return redirect("cart:summary")
+        else:
+            messages.info(request, "Item added to your cart")
+            order.items.add(order_item)
+            return redirect("baseapp:home")
+    
+    else:
+        ordered_date = timezone.now()
+        order = Order.objects.create(user=request.user, ordered_date=ordered_date)
+        order.items.add(order_item)
+        messages.info(request, "Item added to your cart")
+        return redirect("cart:summary")
+
+class OrderSummaryView(LoginRequiredMixin, View):
+    """View for order summary page"""
+    def get(self, *args, **kwargs):
+        try:
+            current_order = Order.objects.get(user=self.request.user, ordered=False)
+            context = {
+                'object': current_order
+            }
+            return render(self.request, 'summary.html', context)
+
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You do not have an active order.")
+            return redirect('/')
+
+        return render(self.request, 'summary.html', context)
+
+@login_required(login_url="/accounts/login/")
+def remove_single_item(request, slug):
+    """Function for removing single item from cart"""
+    item = get_object_or_404(Item, slug=slug)
+
+    order_q = Order.objects.filter(user=request.user, ordered=False)
+
+    if order_q.exists():
+        order = order_q[0]
+    
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item = OrderItem.objects.filter(item=item, user=request.user, ordered=False)[0]
+
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+            else:
+                order.items.remove(order_item)
+
+            messages.info(request, "Cart updated")
+            return redirect("cart:summary")
+        else:
+            messages.info(request, "Item was not in your cart")
+            return redirect("baseapp:home", slug=slug)
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect("baseapp:productdetail", slug=slug)
+
+class OrderSummaryView(LoginRequiredMixin, View):
+    """View for order summary page"""
+    def get(self, *args, **kwargs):
+        try:
+            current_order = Order.objects.get(user=self.request.user, ordered=False)
+            context = {
+                'object': current_order
+            }
+            return render(self.request, 'summary.html', context)
+
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You do not have an active order.")
+            return redirect('/')
+
+        return render(self.request, 'summary.html', context)
+
+class BillingAddressView(View):
+    """View for billing address"""
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            form = BillingAddressForm()
+            context = {
+                'form': form,
+                'order': order
+            }
+            return render(self.request, 'billing-address.html', context)
+        except ObjectDoesNotExist:
+            messages.info(self.request, 'You do not have an active order.')
+            return redirect('cart:summary')
+    
+    def post(self, *args, **kwargs):
+        """Function that makes billing address form work"""
+        form = BillingAddressForm(self.request.POST or None)
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            if form.is_valid():
+                street_address = form.cleaned_data.get('street_address')
+                apartment_address = form.cleaned_data.get('apartment_address')
+                country = form.cleaned_data.get('country')
+                zip_code = form.cleaned_data.get('zip_code')
+
+                billing_address = BillingAddress(
+                    user = self.request.user,
+                    street_address = street_address,
+                    apartment = apartment_address,
+                    country = country,
+                    zip = zip_code
+                )
+
+                billing_address.save()
+                order.billing_address = billing_address
+                order.save()
+
+                messages.info(self.request, "Billing address added to your order.")
+                return redirect('cart:payment')
+
+        except ObjectDoesNotExist:
+            messages.info(self.request, "No active order found.")
+            return redirect('cart:summary')
+
+class PaymentView(View):
+
+    def get(self, *args, **kwargs):
+        order = Order.objects.get(user=self.request.user, ordered=False)
+        if order.billing_address:
+            context = {
+                'order': order,
+                'stripe_public_key': stripe.api_key,
+            }
+            return render(self.request, 'payment.html', context)
+        else:
+            messages.warning(self.request, 'Please add your billing address.')
+            return redirect('cart:billing-address')
+    
+    def post(self, *args, **kwargs):
+        order = Order.objects.get(user=self.request.user, ordered=False)
+        token = self.request.POST.get('stripeToken')
+        amount = int(order.total_price() * 100)
+        stripe.api_key = stripe.api_key
+        
+        try:
+            charge = stripe.Charge.create(
+                amount = amount,
+                currency = 'eur',
+                source = token,
+                description = 'Payment from Lenglishonlinelearning'
+            )
+
+            payment = Payment()
+            payment.stripe_charge_id = charge['id']
+            payment.user = self.request.user
+            payment.amount = order.total_price()
+            payment.save()
+
+            order_items = order.items.all()
+            order_items.update(ordered=True)
+
+            for item in order_items:
+                item.save()
+
+            order.ordered = True
+            order.payment = payment
+
+            order.order_ref = create_order_code()
+            order.save()
+
+            messages.success(self.request, 'Congrats! You have placed your order!')
+            return redirect('/')
+
+        except stripe.error.CardError as e:
+            body = e.json_body
+            err = body.get('error', {})
+            messages.warning(self.request, f"{err.get('message')}")
+            return redirect("/")
+        except stripe.error.RateLimitError as e:
+            messages.warning(self.reqiest, "Rate Limit Error")
+        except stripe.error.InvalidRequestError as e:
+            messages.warning(self.reqiest, "Invalid paremeters")
+            print("Invalid parameters", e)
+            print("the value is: ", amount)
+            return redirect("/")
+        except stripe.error.AuthenticationError as e:
+            messages.warning(self.request, "Not authenticated")
+            return redirect("/")
+        except stripe.error.APIConnectionError as e:
+            messages.warning(self.request, "Network Error")
+            return redirect("/")
+        except stripe.error.StripeError as e:
+            messages.warning(self.request, "Something went wrong, you were not charged, please try again.")
+        except Exception as e:
+            messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
+            return redirect("/")
