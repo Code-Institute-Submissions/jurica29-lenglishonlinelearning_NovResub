@@ -116,12 +116,12 @@ WSGI_APPLICATION = "lenglishonlinelearning.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-      'default': {
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-      }
-  }
+# DATABASES = {
+#       'default': {
+#          'ENGINE': 'django.db.backends.sqlite3',
+#          'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#       }
+#   }
 
 # if 'DATABASE_URL' in os.environ:
 #     DATABASES = {
@@ -136,9 +136,9 @@ DATABASES = {
 #     }
 
 
-# DATABASES = {
-#      'default': dj_database_url.parse("postgres://yjiqwdgkdyhkkd:e276c1f36676cc2e4e75881613e4e72d7034b86fcc7797a91582ef79d8ab1d72@ec2-54-246-185-161.eu-west-1.compute.amazonaws.com:5432/d1a4j0hshgo6m8")
-#   }
+DATABASES = {
+     'default': dj_database_url.parse("postgres://yjiqwdgkdyhkkd:e276c1f36676cc2e4e75881613e4e72d7034b86fcc7797a91582ef79d8ab1d72@ec2-54-246-185-161.eu-west-1.compute.amazonaws.com:5432/d1a4j0hshgo6m8")
+  }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
