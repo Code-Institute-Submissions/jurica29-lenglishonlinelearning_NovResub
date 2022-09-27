@@ -6,9 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, DetailView, ListView
-from baseapp.models import Item
-from .models import Order, OrderItem, BillingAddress, Payment
-from .forms import BillingAddressForm
+from .models import Item, Order, OrderItem, BillingAddress, Payment, Coupon
+from .forms import BillingAddressForm, CouponForm
 import stripe
 import random
 import string
@@ -123,7 +122,9 @@ class BillingAddressView(View):
             form = BillingAddressForm()
             context = {
                 'form': form,
-                'order': order
+                'order': order,
+                'couponform': CouponForm(),
+                'display_coupon_form': True
             }
             return render(self.request, 'billing-address.html', context)
         except ObjectDoesNotExist:
@@ -160,6 +161,30 @@ class BillingAddressView(View):
             messages.info(self.request, "No active order found.")
             return redirect('cart:summary')
 
+def get_coupon(request, code):
+    try:
+        coupon = Coupon.objects.get(code=code)
+        return coupon
+    except ObjectDoesNotExist:
+        messages.info(request, "This coupon is not valid")
+        return redirect('cart:billing-address')
+
+
+class addCouponView(View):
+    def post(self, *args, **kwargs):
+        form = CouponForm(self.request.POST or None)
+        if form.is_valid():
+            try:
+                code = form.cleaned_data.get('code')
+                order = Order.objects.get(user=self.request.user, ordered=False)
+                order.coupon = get_coupon(self.request, code)
+                order.save()
+                messages.success(self.request, "Coupon added")
+                return redirect('cart:billing-address')
+            except ObjectDoesNotExist:
+                messages.success(self.request, "You do not have an active order")
+                return redirect('baseapp:home')
+
 class PaymentView(View):
 
     def get(self, *args, **kwargs):
@@ -167,7 +192,8 @@ class PaymentView(View):
         if order.billing_address:
             context = {
                 'order': order,
-                'stripe_public_key': stripe.api_key,
+                'display_coupon_form': False,
+                'stripe_public_key': stripe.api_key
             }
             return render(self.request, 'payment.html', context)
         else:

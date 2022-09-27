@@ -3,7 +3,49 @@ from django.shortcuts import reverse
 from django_countries.fields import CountryField
 from django.contrib.auth.models import User
 from lenglishonlinelearning import settings
-from baseapp.models import Item
+
+
+CATEGORY_CHOICES = {
+    ('C', 'Course'),
+    ('L', 'Lesson')
+}
+
+LABEL_CHOICES = {
+    ('P', 'Package of lessons'),
+    ('S', 'Single lesson')
+}
+
+
+class Item(models.Model):
+    """Custom item model with below fields"""
+    title = models.CharField(max_length=100)
+    price = models.FloatField()
+    discount_price = models.FloatField(blank=True, null=True)
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=5)
+    label = models.CharField(choices=LABEL_CHOICES, max_length=5)
+    slug = models.SlugField()
+    description = models.TextField()
+    image = models.ImageField()
+
+    def __str__(self):
+        return self.title
+
+    def get_discount_percent(self):
+        discount_percent = 100 - ( self.discount_price * 100 / self.price)
+        return discount_percent
+
+    def get_item_url(self):
+        return reverse('baseapp:detail', kwargs={
+            'slug': self.slug
+        })
+
+    def get_add_to_cart(self):
+        return reverse('cart:add-to-cart', kwargs={
+            'slug': self.slug
+        })
+
+    def snip_description(self):
+        return self.description[:30] + "..."
 
 
 class OrderItem(models.Model):
@@ -21,9 +63,19 @@ class OrderItem(models.Model):
         """Function calculates item price as per given quantity"""
         return self.quantity * self.item.price
 
+    def total_discount_item_price(self):
+        """Function calculates total discount"""
+        return self.quantity * self.item.discount_price
+
+    def amount_saved(self):
+        """Function calculates amount saved"""
+        return self.total_item_price() - self.total_discount_item_price()
+
     def final_price(self):
-        """Function calculates total price for all items"""
-        return self.quantity * self.item.price
+        """Function calculates final price"""
+        if self.item.discount_price:
+            return self.total_discount_item_price()
+        return self.total_item_price()
     
 
 class Order(models.Model):
@@ -36,8 +88,6 @@ class Order(models.Model):
     billing_address = models.ForeignKey("BillingAddress", on_delete=models.SET_NULL,blank=True, null=True)
     coupon = models.ForeignKey("Coupon", on_delete=models.SET_NULL,blank=True, null=True)
     payment = models.ForeignKey("Payment", on_delete=models.SET_NULL,blank=True, null=True)
-    refund_requested = models.BooleanField(default=False)
-    refund_granted = models.BooleanField(default=False)
 
     def __str__(self):
         """Function enables display of the username"""
@@ -48,6 +98,8 @@ class Order(models.Model):
         total = 0
         for order_item in self.items.all():
             total += order_item.final_price()
+        if self.coupon:
+            total -= self.coupon.amount
         return total
 
 class BillingAddress(models.Model):
@@ -59,16 +111,15 @@ class BillingAddress(models.Model):
     zip = models.CharField(max_length=10)
 
     def __str__(self):
-        """Function enables display of the username"""
-        return self.user.username
+       return self.user.username
 
 class Coupon(models.Model):
     """Custom model for coupon"""
     code = models.CharField(max_length=20)
-    amount = models.FloatField
-
+    amount = models.FloatField(default=0)
+    
     def __str__(self):
-        """Function enables display of the coupon name"""
+        """Returns name of the coupon"""
         return self.code
 
 class Payment(models.Model):
@@ -76,17 +127,8 @@ class Payment(models.Model):
     stripe_charge_id = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     amount = models.FloatField()
-    timestampt = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         """Function enables display of the username"""
         return self.user.username
-
-class Refund(models.Model):
-    """Custom model for refund"""
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    reason = models.TextField()
-    accepted = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.pk}"

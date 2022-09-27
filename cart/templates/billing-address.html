@@ -9,36 +9,40 @@
  
        <div class="col-md-8">
  
-           <h4 class="mb-4">Billing Address</h4>
+         {% if order.billing_address %}
+         <p>You have already added the address! <i><b>{{ order.billing_address.street_address }}</b></i>, do you want to change it?</p>
+              <a href="" class="btn btn-warning">Change address</a>
+              <a href="{% url 'cart:payment' %}" class="btn btn-secondary mb-1">Proceed to checkout</a>
+         {% else %}
+
+         <form action="" method="post" autocomplete="off" class="container">
+             {% csrf_token %}
+
+             <div class="form-floating mb-3">
+                {{ form.street_address }}
+                <label for="floatingInput">Street and house number</label>
+             </div>
+
+             <div class="form-floating mb-3">
+                {{ form.apartment_address }}
+                <label for="floatingApartment">Apartment/House</label>
+             </div>
+
+             <div class="form-floating mb-3">
+                {{ form.country }}
+                 <div class="invalid-feedback">Please select a valid country</div>
+                <label for="floatingSelect">Select country</label>
+             </div>
+             <div class="form-floating mb-3">
+                {{ form.zip_code }}
+                <label for="floatingZip">Zip code</label>
+             </div>
  
-           <form action="" method="post" autocomplete="off" class="container">
-               {% csrf_token %}
- 
-               <div class="form-floating mb-3">
-                  {{ form.street_address }}
-                  <label for="floatingInput">Street and house number</label>
-               </div>
- 
-               <div class="form-floating mb-3">
-                  {{ form.apartment_address }}
-                  <label for="floatingApartment">Apartment</label>
-               </div>
- 
-               <div class="form-floating mb-3">
-                  {{ form.country }}
-                   <div class="invalid-feedback">Please select a valid country</div>
-                  <label for="floatingSelect">Select country</label>
-               </div>
-               <div class="form-floating mb-3">
-                  {{ form.zip_code }}
-                  <label for="floatingZip">Zip code</label>
-               </div>
- 
-                  <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                  <button class="btn btn-secondary btn-lg btn-sm mb-1" type="submit">Continue to checkout</button>
  
            </form>
  
-
+           {% endif %}
  
        </div>
        <!--Cart snippet-->

@@ -33,4 +33,11 @@ class BillingAddressForm(forms.Form):
         'id':'floatingInput',
         'placeholder': 'Zip code'
     }))
+
+
+class CouponForm(forms.Form):
+    code = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Coupon code'
+    }))
     
