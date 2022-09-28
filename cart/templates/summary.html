@@ -4,6 +4,9 @@
 {% block title %} Summary {% endblock title %}
 
 {% block content %}
+<div class="alert alert-secondary text-center mb-0" role="alert">
+  <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order!</p>
+</div>
 <section class="py-5">
   <div class="container table-responsive">
        <h4>Order summary</h4>
@@ -40,7 +43,7 @@
               <span class="badge rounded-pill bg-info ml-2">Saving: €{{ order_item.amount_saved|floatformat }}</span>
               </td>
               {% else %}
-              <td>€{{ order_item.total_item_price }}</td>
+              <td>€{{ order_item.total_item_price|floatformat }}</td>
               {% endif %}
           </tr>
         {% endfor %}
@@ -49,7 +52,7 @@
 
         <tr>
             <td colspan="4"><b>Order total</b></td>
-            <td><b>${{ object.total_price|floatformat }}</b></td>
+            <td><b>€{{ object.total_price|floatformat }}</b></td>
         </tr>
 
         {% endif %}

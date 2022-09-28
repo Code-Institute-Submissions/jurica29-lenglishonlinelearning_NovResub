@@ -28,23 +28,28 @@ class Item(models.Model):
     image = models.ImageField()
 
     def __str__(self):
+        """Returning item name"""
         return self.title
 
     def get_discount_percent(self):
+        """Calculate discount percentage"""
         discount_percent = 100 - ( self.discount_price * 100 / self.price)
         return discount_percent
 
     def get_item_url(self):
+        """Getting item url"""
         return reverse('baseapp:detail', kwargs={
             'slug': self.slug
         })
 
     def get_add_to_cart(self):
+        """Add to cart option"""
         return reverse('cart:add-to-cart', kwargs={
             'slug': self.slug
         })
 
     def snip_description(self):
+        """Snippet description"""
         return self.description[:30] + "..."
 
 
@@ -93,6 +98,10 @@ class Order(models.Model):
         """Function enables display of the username"""
         return self.user.username
 
+    def __str__(self):
+        """Function enables display of the name of items"""
+        return self.items
+
     def total_price(self):
         """Total price calculation"""
         total = 0
@@ -111,6 +120,7 @@ class BillingAddress(models.Model):
     zip = models.CharField(max_length=10)
 
     def __str__(self):
+       """Returning user name"""
        return self.user.username
 
 class Coupon(models.Model):

@@ -162,6 +162,7 @@ class BillingAddressView(View):
             return redirect('cart:summary')
 
 def get_coupon(request, code):
+    """Get coupon function"""
     try:
         coupon = Coupon.objects.get(code=code)
         return coupon
@@ -171,6 +172,7 @@ def get_coupon(request, code):
 
 
 class addCouponView(View):
+    """Add coupon functionality"""
     def post(self, *args, **kwargs):
         form = CouponForm(self.request.POST or None)
         if form.is_valid():
@@ -186,7 +188,7 @@ class addCouponView(View):
                 return redirect('baseapp:home')
 
 class PaymentView(View):
-
+    """Class for payment view"""
     def get(self, *args, **kwargs):
         order = Order.objects.get(user=self.request.user, ordered=False)
         if order.billing_address:
@@ -258,3 +260,8 @@ class PaymentView(View):
         except Exception as e:
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
+
+def MyOrders(request):
+    # orders = OrderItem.objects.filter(user=request.user, ordered=True).order_by('-id')
+    orders = Order.objects.filter(user=request.user, ordered=True).order_by('-id')
+    return render(request, 'order-history.html',{'orders': orders})

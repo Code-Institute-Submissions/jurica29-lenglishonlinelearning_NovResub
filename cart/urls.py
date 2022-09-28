@@ -9,5 +9,6 @@ urlpatterns = [
     path('summary', views.OrderSummaryView.as_view(), name='summary'),
     path('billing-address', views.BillingAddressView.as_view(), name='billing-address'),
     path('add-coupon/', views.addCouponView.as_view(), name='add-coupon'),
+    path('order-history/', views.MyOrders, name='order-history'),
     path('payment/', views.PaymentView.as_view(), name='payment')
 ]

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+{% block title %}  My orders {% endblock title %}
+ 
+{% block content %}
+
+
+
+<h2 class="my-6 text-xl mb-3 mt-3">My orders</h2>
+		<div class="col-md-9">
+			<div class="table-responsive justify-content-center">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Order Reference</th>
+                        <th scope="col">Qty - Lessons Ordered</th>
+                        <th scope="col">Date Ordered</th>
+                        <th scope="col">Total Amount Paid</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for order in orders %}
+                      <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td> {{ order.order_ref }} </td>
+                        <td> {{ order.items.all }} </td>
+                        <td> {{ order.ordered_date}} </td>
+                        <td>€{{ order.total_price|floatformat }}</td>
+                      </tr>
+                    </tbody>
+                    {% endfor %}
+                  </table>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

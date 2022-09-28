@@ -4,17 +4,13 @@
 {% block title %} Billing address {% endblock title %}
  
 {% block content %}
+<div class="alert alert-secondary text-center mb-0" role="alert">
+   <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order!</p>
+ </div>
 <section class="py-5 container">
    <div class="row">
  
        <div class="col-md-8">
- 
-         {% if order.billing_address %}
-         <p>You have already added the address! <i><b>{{ order.billing_address.street_address }}</b></i>, do you want to change it?</p>
-              <a href="" class="btn btn-warning">Change address</a>
-              <a href="{% url 'cart:payment' %}" class="btn btn-secondary mb-1">Proceed to checkout</a>
-         {% else %}
-
          <form action="" method="post" autocomplete="off" class="container">
              {% csrf_token %}
 
@@ -39,10 +35,7 @@
              </div>
  
                   <button class="btn btn-secondary btn-lg btn-sm mb-1" type="submit">Continue to checkout</button>
- 
            </form>
- 
-           {% endif %}
  
        </div>
        <!--Cart snippet-->
