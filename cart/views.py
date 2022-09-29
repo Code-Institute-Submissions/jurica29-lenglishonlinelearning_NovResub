@@ -235,7 +235,7 @@ class PaymentView(View):
             order.save()
 
             messages.success(self.request, 'Congrats! You have placed your order!')
-            return redirect('/')
+            return redirect('cart:order-history')
 
         except stripe.error.CardError as e:
             body = e.json_body
@@ -261,7 +261,7 @@ class PaymentView(View):
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
 
+
 def MyOrders(request):
-    # orders = OrderItem.objects.filter(user=request.user, ordered=True).order_by('-id')
     orders = Order.objects.filter(user=request.user, ordered=True).order_by('-id')
-    return render(request, 'order-history.html',{'orders': orders})
+    return render(request, 'order-history.html', {'orders': orders})

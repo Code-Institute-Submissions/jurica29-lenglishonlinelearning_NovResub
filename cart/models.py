@@ -94,13 +94,13 @@ class Order(models.Model):
     coupon = models.ForeignKey("Coupon", on_delete=models.SET_NULL,blank=True, null=True)
     payment = models.ForeignKey("Payment", on_delete=models.SET_NULL,blank=True, null=True)
 
+    def __unicode__(self):
+        """Returns name/list of items as a string"""
+        return self.items
+
     def __str__(self):
         """Function enables display of the username"""
         return self.user.username
-
-    def __str__(self):
-        """Function enables display of the name of items"""
-        return self.items
 
     def total_price(self):
         """Total price calculation"""

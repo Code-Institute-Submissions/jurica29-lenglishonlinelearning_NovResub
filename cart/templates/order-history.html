@@ -1,3 +1,4 @@
+<!-- Order history page -->
 {% extends 'base.html' %}
 {% load static %}
  
@@ -5,35 +6,56 @@
  
 {% block content %}
 
+<div class="alert alert-secondary text-center mb-0" role="alert">
+  <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order!</p>
+</div>
 
+{% if orders  %}
 
-<h2 class="my-6 text-xl mb-3 mt-3">My orders</h2>
-		<div class="col-md-9">
-			<div class="table-responsive justify-content-center">
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Order Reference</th>
-                        <th scope="col">Qty - Lessons Ordered</th>
-                        <th scope="col">Date Ordered</th>
-                        <th scope="col">Total Amount Paid</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for order in orders %}
-                      <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <td> {{ order.order_ref }} </td>
-                        <td> {{ order.items.all }} </td>
-                        <td> {{ order.ordered_date}} </td>
-                        <td>€{{ order.total_price|floatformat }}</td>
-                      </tr>
-                    </tbody>
-                    {% endfor %}
-                  </table>
-			</div>
-		</div>
-	</div>
+<div class="container my-5">
+  <div class="shadow-5 rounded-4 overflow-hidden">
+    <h2 class="font-weight-bold text-uppercase text-center">My orders</h2>
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Order Reference</th>
+            <th scope="col">Qty - Lessons Ordered</th>
+            <th scope="col">Date Ordered</th>
+            <th scope="col">Total </th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td> {{ order.order_ref }} </td>
+          <td>
+            {% for item in order.items.all %} 
+              {{ item }} 
+            {% if not forloop.last %}| 
+            {% endif %}
+            {% endfor %}
+          </td>
+          <td> {{ order.ordered_date}} </td>
+          <td>€{{ order.total_price|floatformat }}</td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+{% else %}
+
+<div class="d-flex align-items-center justify-content-center mt-5 mb-5">
+  <div>
+   <h3 class="text-center">Sorry, you haven't placed any orders yet. :(</h4> 
+   <h6 class="text-center">Place an order by going back to home page and adding your items to the cart.</h6>
+   <p class="text-center"> Please contact me if you think this is an error. </p>
+  </div>
+</div>
+
+ {% endif %}
 
 {% endblock %}
