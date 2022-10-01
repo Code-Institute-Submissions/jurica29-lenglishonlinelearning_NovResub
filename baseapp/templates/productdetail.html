@@ -12,27 +12,23 @@
     <div class="container px-5 px-lg-5 mt-5">
         <div class="row gx-3 gx-md-5 justify-content-center">
             <div class="col-md-4 mb-5">
-                <!-- Product image-->
-                <img id="productimage" class="card-img-top p-2 shadow h-100" src="{{ object.image.url }}" alt="product image" />
+            <!-- Product image-->
+            <img id="productimage" class="card-img-top p-3 shadow h-200" src="{{ object.image.url }}" alt="product image" />
             </div>
                     <!-- Product details-->
                     <div class="col-md-8 mb-5">
-                        <h4 class="fw-bolder text-secondary">{{ item.title }}</h5>
-                            <!-- Product price-->
-                            <p>€{{ item.price|floatformat }}</p>
-
-                            <span class="badge rounded-pill bg-info">{{ item.get_category_display }}</span>
-
-                            <span class="badge rounded-pill bg-info">{{ item.get_label_display }}</span>
-
-                            <p class="card mt-1">{{ item.description }}</p>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div><a class="btn btn-outline-dark mb-2" href="{% url 'baseapp:home' %}">Continue shopping</a></div>
-                                    <div><a class="btn btn-outline-dark" href="{{ item.get_add_to_cart }}">Add item to cart<i class="bi-cart-fill me-1"></i></a></div>
-                                 </div>
-                            </div>
+                    <blockquote class="blockquote bg-light p-3 shadow rounded">
+                      <h5 class="fw-bolder">{{ item.title }} | €{{ item.price|floatformat }}</h5>
+                      <div><span class="text-center">{{ item.get_category_display }} | {{ item.get_label_display }}</span></div>
+                      <p class="mb-0 mt-2 font-italic">{{ item.description }}</p>
+                      <!-- Two aligned buttons -->
+                      <div class="row">
+                          <div class="col-sm-12 text-center">
+                            <a class="btn btn-outline-dark mt-3" href="{% url 'baseapp:home' %}">Continue shopping</a>
+                            <a class="btn btn-outline-dark mt-3" href="{{ item.get_add_to_cart }}">Add item to cart<i class="bi-cart-fill me-1"></i></a>
+                           </div>
+                      </div>
+                  </blockquote>
                 </div>
             </div>
         </div>
