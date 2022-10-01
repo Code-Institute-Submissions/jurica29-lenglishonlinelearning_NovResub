@@ -4,9 +4,13 @@
 {% block title %} Summary {% endblock title %}
 
 {% block content %}
+<!-- Coupon code message for users -->
 <div class="alert alert-secondary text-center mb-0" role="alert">
   <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order!</p>
 </div>
+
+{% if object.items.all  %}
+
 <section class="py-5">
   <div class="container table-responsive">
        <h4>Order summary</h4>
@@ -67,6 +71,21 @@
         </tbody>
       </table>
   </div>
+
+  {% else %}
+<!-- Success message when user removes all items from the cart -->
+<div class="d-flex align-items-center justify-content-center mt-5 mb-5">
+  <div>
+    <div class="alert alert-success" role="alert">
+      <h4 class="text-center">Success!</h4>
+      <p class="mb-1">You have successfully removed all items from the cart.</p>
+      <div class="text-center"><a href="{% url 'baseapp:home' %}" class="alert-link">Return to homepage</a></div>
+    </div>
+</div>
+</div>
+
+{% endif %}
+
 </section>
 
 {% endblock %}
