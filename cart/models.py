@@ -140,5 +140,5 @@ class Payment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        """Function enables display of the username"""
+        """Displaying username on orders"""
         return self.user.username
