@@ -77,9 +77,9 @@
 <div class="d-flex align-items-center justify-content-center mt-5 mb-5">
   <div>
     <div class="alert alert-success" role="alert">
-      <h4 class="text-center">Success!</h4>
-      <p class="mb-1">You have successfully removed all items from the cart.</p>
-      <div class="text-center"><a href="{% url 'baseapp:home' %}" class="alert-link">Return to homepage</a></div>
+      <h4 class="text-center">No items found in your cart <strong>{{ user.get_username }} :(</strong></h4>
+      <p class="mb-1">Return to homepage to continue with your shopping.</p>
+      <div class="text-center"><a href="{% url 'baseapp:home' %}" class="alert-link">Homepage</a></div>
     </div>
 </div>
 </div>
