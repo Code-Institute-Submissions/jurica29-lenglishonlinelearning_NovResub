@@ -1,5 +1,7 @@
 from django.contrib import messages
 from django.conf import settings
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from allauth.account.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +10,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, DetailView, ListView
 from .models import Item, Order, OrderItem, BillingAddress, Payment, Coupon
 from .forms import BillingAddressForm, CouponForm
-from django.core.mail import send_mail
 import stripe
 import random
 import string
@@ -42,7 +43,7 @@ def add_to_cart(request, slug):
             order_item.quantity += 1
             order_item.save()
             messages.info(request, "Item added to your cart")
-            return redirect("baseapp:home")
+            return redirect("cart:summary")
         else:
             messages.info(request, "Item added to your cart")
             order.items.add(order_item)
@@ -261,6 +262,28 @@ class PaymentView(View):
         except Exception as e:
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
+
+@login_required
+def order_success(request, pk):
+    """
+    Show an order confirmation page once purchase is completed
+    """
+    order = Order.objects.get(pk=pk)
+
+    if order.customer == request.user:
+        template = render_to_string('email_message.html', {'name': request.user})
+        email = EmailMessage(
+            'Thank you for your purchase! I will be in touch with you soon to schedule lesson/s.',
+            template,
+            settings.EMAIL_HOST_USER,
+            [request.user.email]
+        )
+        email.fail_silently = False
+        email.send()
+
+        context = {'order': order}
+
+        return render(request, 'order-history.html', context)
 
 
 def MyOrders(request):
