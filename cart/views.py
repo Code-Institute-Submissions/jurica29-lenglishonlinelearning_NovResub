@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, DetailView, ListView
 from .models import Item, Order, OrderItem, BillingAddress, Payment, Coupon
 from .forms import BillingAddressForm, CouponForm
+from django.core.mail import send_mail
 import stripe
 import random
 import string
