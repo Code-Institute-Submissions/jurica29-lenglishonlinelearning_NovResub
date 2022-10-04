@@ -265,20 +265,21 @@ class PaymentView(View):
         except stripe.error.StripeError as e:
             messages.warning(self.request, "Something went wrong, you were not charged, please try again.")
         except Exception as e:
-            print("EXCEPTION: ", e)
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
 
+def MyOrders(request):
+    orders = Order.objects.filter(user=request.user, ordered=True).order_by('-id')
+    return render(request, 'order-history.html', {'orders': orders})
+
 @login_required
 def order_success(request, pk):
-    print("ORDER SUCCESS FUNCTION WORKS!")
     """
     Show an order confirmation page once purchase is completed
     """
     order = Order.objects.get(pk=pk)
 
     if order.user == request.user:
-        print("If STATEMENT works!!!")
         template = render_to_string('email_message.html', {'name': request.user})
         email = EmailMessage(
             'Thank you for your purchase! I will be in touch with you soon to schedule lesson/s.',
@@ -292,8 +293,3 @@ def order_success(request, pk):
         context = {'order': order}
 
         return render(request, 'order-history.html', context)
-
-
-def MyOrders(request):
-    orders = Order.objects.filter(user=request.user, ordered=True).order_by('-id')
-    return render(request, 'order-history.html', {'orders': orders})
