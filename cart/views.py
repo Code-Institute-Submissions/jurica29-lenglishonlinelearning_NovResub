@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from allauth.account.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import View, DetailView, ListView
 from .models import Item, Order, OrderItem, BillingAddress, Payment, Coupon
 from .forms import BillingAddressForm, CouponForm
@@ -236,8 +236,13 @@ class PaymentView(View):
             order.order_ref = create_order_code()
             order.save()
 
-            messages.success(self.request, 'Congrats! You have placed your order!')
-            return redirect('cart:order-history')
+            messages.success(
+                self.request,
+                "Your order was successful! You will receive a\
+                    confirmation email.")
+            return redirect(f'/order_success/{order.pk}')
+            # return redirect(reverse("order_success", kwargs={"pk": order.pk }))
+
 
         except stripe.error.CardError as e:
             body = e.json_body
@@ -260,17 +265,20 @@ class PaymentView(View):
         except stripe.error.StripeError as e:
             messages.warning(self.request, "Something went wrong, you were not charged, please try again.")
         except Exception as e:
+            print("EXCEPTION: ", e)
             messages.warning(self.request, "Something went wrong, we will work on it since we have been notified.")
             return redirect("/")
 
 @login_required
 def order_success(request, pk):
+    print("ORDER SUCCESS FUNCTION WORKS!")
     """
     Show an order confirmation page once purchase is completed
     """
     order = Order.objects.get(pk=pk)
 
-    if order.customer == request.user:
+    if order.user == request.user:
+        print("If STATEMENT works!!!")
         template = render_to_string('email_message.html', {'name': request.user})
         email = EmailMessage(
             'Thank you for your purchase! I will be in touch with you soon to schedule lesson/s.',
