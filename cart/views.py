@@ -292,4 +292,4 @@ def order_success(request, pk):
 
         context = {'order': order}
 
-        return render(request, 'order-history.html', context)
+        return render(request, 'baseapp/home.html', context)
