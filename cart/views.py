@@ -241,7 +241,6 @@ class PaymentView(View):
                 "Your order was successful! You will receive a\
                     confirmation email.")
             return redirect(f'/order_success/{order.pk}')
-            # return redirect(reverse("order_success", kwargs={"pk": order.pk }))
 
 
         except stripe.error.CardError as e:
@@ -292,4 +291,4 @@ def order_success(request, pk):
 
         context = {'order': order}
 
-        return render(request, 'baseapp:home', context)
+        return render(request, 'order-history.html', context)
