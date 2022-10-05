@@ -238,9 +238,9 @@ class PaymentView(View):
 
             messages.success(
                 self.request,
-                "Your order was successful! You will receive a\
-                    confirmation email.")
-            return redirect(f'/order_success/{order.pk}')
+                "Your order was successful! I will be in touch with\
+                    you soon to arrange date and time for the lesson.")
+            return redirect("cart:order-history")
 
 
         except stripe.error.CardError as e:
@@ -271,24 +271,3 @@ def MyOrders(request):
     orders = Order.objects.filter(user=request.user, ordered=True).order_by('-id')
     return render(request, 'order-history.html', {'orders': orders})
 
-@login_required
-def order_success(request, pk):
-    """
-    Show an order confirmation page once purchase is completed
-    """
-    order = Order.objects.get(pk=pk)
-
-    if order.user == request.user:
-        template = render_to_string('email_message.html', {'name': request.user})
-        email = EmailMessage(
-            'Thank you for your purchase! I will be in touch with you soon to schedule lesson/s.',
-            template,
-            settings.EMAIL_HOST_USER,
-            [request.user.email]
-        )
-        email.fail_silently = False
-        email.send()
-
-        context = {'order': order}
-
-        return render(request, 'order-history.html', context)

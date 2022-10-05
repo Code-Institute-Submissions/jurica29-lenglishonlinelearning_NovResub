@@ -11,5 +11,4 @@ urlpatterns = [
     path('add-coupon/', views.addCouponView.as_view(), name='add-coupon'),
     path('order-history/', views.MyOrders, name='order-history'),
     path('payment/', views.PaymentView.as_view(), name='payment'),
-    path('order_success/<int:pk>', views.order_success, name='order_success'),
 ]

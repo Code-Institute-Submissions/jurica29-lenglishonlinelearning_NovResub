@@ -31,6 +31,10 @@ class Item(models.Model):
         """Returning item name"""
         return self.title
 
+    class Meta:
+        """Fixes pagination issues"""
+        ordering = ['-id']
+
     def get_discount_percent(self):
         """Calculate discount percentage"""
         discount_percent = 100 - ( self.discount_price * 100 / self.price)
