@@ -4,18 +4,19 @@ from .models import ProductReview
 
 
 class ProductReviewForm(forms.ModelForm):
-    """
-    Creates product review form
-    """
+    """Class used for comment form"""
+
     class Meta:
-        """
-        Get model and add labels and widgets to the fields
-        """
+        """Inner class"""
+
         model = ProductReview
-        fields = ('review_text')
-        labels = {
-            "review_text": "Review",
-        }
+        fields = ("name", "review_text")
+        # Fixing the size of comment box
         widgets = {
-            'review_text': forms.Textarea(attrs={'rows': 5})
-            }
+            "review_text": forms.Textarea(attrs={"rows": 5, "cols": 30}),
+        }
+        labels = {
+            "name": "",
+            "review_text": ""
+        }
+

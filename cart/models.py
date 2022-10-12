@@ -38,7 +38,7 @@ class Item(models.Model):
 
     def get_item_url(self):
         """Getting item url"""
-        return reverse("baseapp:detail", kwargs={"slug": self.slug})
+        return reverse("baseapp:productdetail", kwargs={"slug": self.slug})
 
     def get_add_to_cart(self):
         """Add to cart option"""

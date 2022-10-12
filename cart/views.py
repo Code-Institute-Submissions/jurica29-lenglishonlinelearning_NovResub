@@ -54,7 +54,7 @@ def add_to_cart(request, slug):
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
         messages.info(request, "Item added to your cart")
-        return redirect("cart:summary")
+        return redirect("baseapp:home")
 
 
 class OrderSummaryView(LoginRequiredMixin, View):
