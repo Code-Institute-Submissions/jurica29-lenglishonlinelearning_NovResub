@@ -5,19 +5,14 @@ from django.contrib.auth.models import User
 from lenglishonlinelearning import settings
 
 
-CATEGORY_CHOICES = {
-    ('C', 'Course'),
-    ('L', 'Lesson')
-}
+CATEGORY_CHOICES = {("C", "Course"), ("L", "Lesson")}
 
-LABEL_CHOICES = {
-    ('P', 'Package of lessons'),
-    ('S', 'Single lesson')
-}
+LABEL_CHOICES = {("P", "Package of lessons"), ("S", "Single lesson")}
 
 
 class Item(models.Model):
     """Custom item model with below fields"""
+
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
@@ -33,24 +28,21 @@ class Item(models.Model):
 
     class Meta:
         """Fixes pagination issues"""
-        ordering = ['-id']
+
+        ordering = ["-id"]
 
     def get_discount_percent(self):
         """Calculate discount percentage"""
-        discount_percent = 100 - ( self.discount_price * 100 / self.price)
+        discount_percent = 100 - (self.discount_price * 100 / self.price)
         return discount_percent
 
     def get_item_url(self):
         """Getting item url"""
-        return reverse('baseapp:detail', kwargs={
-            'slug': self.slug
-        })
+        return reverse("baseapp:detail", kwargs={"slug": self.slug})
 
     def get_add_to_cart(self):
         """Add to cart option"""
-        return reverse('cart:add-to-cart', kwargs={
-            'slug': self.slug
-        })
+        return reverse("cart:add-to-cart", kwargs={"slug": self.slug})
 
     def snip_description(self):
         """Snippet description"""
@@ -59,6 +51,7 @@ class Item(models.Model):
 
 class OrderItem(models.Model):
     """Custom model for adding items to the cart"""
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -85,18 +78,25 @@ class OrderItem(models.Model):
         if self.item.discount_price:
             return self.total_discount_item_price()
         return self.total_item_price()
-    
+
 
 class Order(models.Model):
     """Custom order model with below fields"""
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order_ref = models.CharField(max_length=20)
     items = models.ManyToManyField(OrderItem)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
-    billing_address = models.ForeignKey("BillingAddress", on_delete=models.SET_NULL,blank=True, null=True)
-    coupon = models.ForeignKey("Coupon", on_delete=models.SET_NULL,blank=True, null=True)
-    payment = models.ForeignKey("Payment", on_delete=models.SET_NULL,blank=True, null=True)
+    billing_address = models.ForeignKey(
+        "BillingAddress", on_delete=models.SET_NULL, blank=True, null=True
+    )
+    coupon = models.ForeignKey(
+        "Coupon", on_delete=models.SET_NULL, blank=True, null=True
+    )
+    payment = models.ForeignKey(
+        "Payment", on_delete=models.SET_NULL, blank=True, null=True
+    )
 
     def __unicode__(self):
         """Returns name/list of items as a string"""
@@ -115,8 +115,10 @@ class Order(models.Model):
             total -= self.coupon.amount
         return total
 
+
 class BillingAddress(models.Model):
     """Custom model for billing address"""
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=100)
     apartment = models.CharField(max_length=100)
@@ -124,20 +126,24 @@ class BillingAddress(models.Model):
     zip = models.CharField(max_length=10)
 
     def __str__(self):
-       """Returning user name"""
-       return self.user.username
+        """Returning user name"""
+        return self.user.username
+
 
 class Coupon(models.Model):
     """Custom model for coupon"""
+
     code = models.CharField(max_length=20)
     amount = models.FloatField(default=0)
-    
+
     def __str__(self):
         """Returns name of the coupon"""
         return self.code
 
+
 class Payment(models.Model):
     """Custom model for payment"""
+
     stripe_charge_id = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     amount = models.FloatField()

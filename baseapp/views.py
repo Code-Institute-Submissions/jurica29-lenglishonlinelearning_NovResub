@@ -19,3 +19,7 @@ class ProductDetailView(DetailView):
     """Product detail view"""
     model = Item
     template_name = 'productdetail.html'
+
+    def get_queryset(self, *args, **kwargs):
+        item = Item.objects.filter(id=self.kwargs['pk'])
+        return item
