@@ -6,6 +6,7 @@ from cart.models import Item
 
 class ProductReview(models.Model):
     item = models.ForeignKey(Item, related_name="reviews", on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
     review_text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

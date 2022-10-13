@@ -49,12 +49,12 @@
               <!-- Looping over reviews. --> 
               {% for review in item.reviews.all %}  
               <blockquote class="blockquote bg-light p-3 shadow rounded">
-                <h4 class="text-center">Student | {{ user.get_username }}</h4>
+                <h4 class="text-center">Student | {{ review.name }}</h4>
                 <div>
                   <small>{{ review.created_at|date:'d-m-Y H:i' }}</small>
                   <div>{{ review.review_text }}</div>
                   <!-- If user is logged in, user can edit or delete reviews via buttons below. --> 
-                  {% if user.name == review.user %}
+              {% if user.username == review.name %}
                       <!-- Two aligned buttons -->
                       <div class="row">
                         <div class="col-sm-12 text-center">
@@ -62,18 +62,32 @@
                           <a class="btn btn-outline-dark mt-3" href="{% url 'baseapp:deleteReview' review.id %}">Delete</a>
                          </div>
                     </div>
-                  {% endif %}
+              {% endif %}
                 </div>
             </blockquote>
 
             {% endfor %} 
 
             {% else %}
+
+            <blockquote class="blockquote bg-light p-3 shadow rounded mt-2">
+              <p>You can't leave reviews if you are not a registered user. Don't have an account? Create one <a href="{% url 'account_signup' %}">Here</a>! </p>
+              <p>You already have an account? Login <a href="{% url 'account_login' %}">Here</a>! </p>
+             </blockquote>
+
+            
               <!-- Message displayed for users who are not registered or logged in. -->
               <!-- Those potential users can login or register below. -->
-              <p>You can't see or leave reviews if you are not a registered user. Don't have an account? Create one <a href="{% url 'account_signup' %}">Here</a>! </p>
-              <p>You already have an account? Login <a href="{% url 'account_login' %}">Here</a>! </p>
-            </div> 
+              <!-- Looping over reviews. --> 
+              <!-- Looping over reviews. --> 
+              {% for review in item.reviews.all %}  
+              <blockquote class="blockquote bg-light p-3 shadow rounded">
+                <h4 class="text-center">Student | {{ review.name }}</h4>
+                <div>
+                  <small>{{ review.created_at|date:'d-m-Y H:i' }}</small>
+                  <div>{{ review.review_text }}</div>
+              </blockquote>
+            {% endfor %}
             {% endif %}
       </section>
 

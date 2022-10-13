@@ -9,6 +9,7 @@
   <form action="" method="POST"> 
     {% csrf_token %} 
     <div class="form-group">
+      <p class="mb-0 mt-2 font-italic">{% render_field form.name class="form-control" placeholder="Name" %}</p>
       <p class="mb-0 mt-2 font-italic">{% render_field form.review_text class="form-control" placeholder="Your review here.." %}</p>
     </div>
       <div class="mt-2 text-center">

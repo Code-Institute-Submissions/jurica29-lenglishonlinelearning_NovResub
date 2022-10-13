@@ -29,10 +29,10 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu70.gitpod.io"
+    "https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu71.gitpod.io"
 ]
 
 ALLOWED_HOSTS = ["lenglishonlinelearning.herokuapp.com", "localhost"]
