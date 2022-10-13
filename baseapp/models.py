@@ -6,24 +6,10 @@ from cart.models import Item
 
 class ProductReview(models.Model):
     item = models.ForeignKey(Item, related_name="reviews", on_delete=models.CASCADE)
-    name = models.CharField(max_length=10)
     review_text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         """Displaying comment creators names within admin area"""
         return f"{self.item}"
-    # """"
-    # Creates item review
-    # """
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    # review_text = models.TextField()
-    # date_added = models.DateTimeField(auto_now_add=True)
-
-    # def __str__(self):
-    #     """
-    #     Return item name on admin panel
-    #     """
-    #     return self.item
 
