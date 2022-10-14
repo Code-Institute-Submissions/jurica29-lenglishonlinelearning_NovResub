@@ -5,19 +5,21 @@
 
 {% block content %}
 {% load static %}
+ <!-- Coupon alert -->
 <div class="alert alert-secondary text-center mb-0" role="alert">
     <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order!</p>
   </div>
 <section class="py-5">
     <div class="container px-5 px-lg-5 mt-5">
         <div class="row gx-3 gx-md-5 justify-content-center">
-            <div class="col-md-4 mb-5">
-            <!-- Product image-->
+
+          <!-- Product image-->
+            <div class="col-lg-4 col-md-8 col-sm-12 mb-5">
             <img id="productimage" class="card-img-top p-3 shadow-lg" src="{{ item.image.url }}" alt="product image" />
             </div>
-                    <!-- Product details-->
-                    <div class="col-md-8 mb-5">
 
+                    <!-- Product details-->
+                    <div class="col-lg-7 col-md-8 col-sm-12 mb-4">
                     <blockquote class="blockquote p-3 shadow-lg">
                       <h5 class="fw-bolder">{{ item.title }} | €{{ item.price|floatformat }}</h5>
                       <div><span class="text-center">{{ item.get_category_display }} | {{ item.get_label_display }}</span></div>
@@ -30,7 +32,10 @@
                            </div>
                       </div>
                   </blockquote>
+                  </div>
 
+                  <!-- Review -->
+                  <div class="col-lg-7 col-md-8 col-sm-12 mt-4">
                   <blockquote class="blockquote bg-light p-3 shadow-lg">
                   <h5 class="text-center">Leave a review:</h5>  
               <form method="post">
@@ -46,8 +51,11 @@
                   </div>
               </form>
               </blockquote>
+            </div> 
+
               <!-- Looping over reviews. --> 
-              {% for review in item.reviews.all %}  
+              {% for review in item.reviews.all %} 
+              <div class="col-lg-7 col-md-8 col-sm-12 mt-3"> 
               <blockquote class="blockquote bg-light p-3 shadow rounded">
                 <h4 class="text-center">Student | {{ review.name }}</h4>
                 <div>
@@ -65,23 +73,26 @@
               {% endif %}
                 </div>
             </blockquote>
+            </div>
 
             {% endfor %} 
 
             {% else %}
 
+             <!-- Message displayed for users who are not registered or logged in. -->
             <blockquote class="blockquote bg-light p-3 shadow rounded mt-2">
               <p>You can't leave reviews if you are not a registered user. Don't have an account? Create one <a href="{% url 'account_signup' %}">Here</a>! </p>
               <p>You already have an account? Login <a href="{% url 'account_login' %}">Here</a>! </p>
              </blockquote>
 
-            
-              <!-- Message displayed for users who are not registered or logged in. -->
-              <!-- Those potential users can login or register below. -->
               <!-- Looping over reviews. --> 
-              <!-- Looping over reviews. --> 
-              {% for review in item.reviews.all %}  
-              <blockquote class="blockquote bg-light p-3 shadow rounded">
+              {% if item.reviews.all %}
+              <h4 class="text-center"><strong>Reviews</strong></h4>
+              {% endif %}
+
+              {% for review in item.reviews.all %}
+              <div class="align-items-center mt-3"> 
+              <blockquote class="col-lg-12 col-md-12 col-sm-12 bg-light p-3 shadow rounded">
                 <h4 class="text-center">Student | {{ review.name }}</h4>
                 <div>
                   <small>{{ review.created_at|date:'d-m-Y H:i' }}</small>
@@ -89,6 +100,8 @@
               </blockquote>
             {% endfor %}
             {% endif %}
+            </div>
+
       </section>
 
 {% endblock %}
