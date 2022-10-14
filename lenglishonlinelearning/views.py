@@ -10,3 +10,8 @@ def error_404_view(request, exception):
 def error_500_view(request):
     """Error Handler 500 - Internal Server Error"""
     return render(request, "not_found.html")
+
+
+def error_403_view(request):
+    """Error Handler 403 - Page Not Found"""
+    return render(request, "403.html")

@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from django.views.generic import View, ListView, TemplateView
+from django.views.generic import ListView, TemplateView
 from cart.models import Item
 from .models import ProductReview
 from .forms import ProductReviewForm
@@ -27,8 +28,18 @@ def ProductDetailView(request, slug):
     """Function view used for detail page functionality/display."""
     item = get_object_or_404(Item, slug=slug)
 
+    # Get the reviews posted by the user for the item
+    user_reviews = item.reviews.filter(name=request.user.username)
+    
+
     if request.method == "POST":
         form = ProductReviewForm(request.POST)
+
+        # Check if there are any reviews posted by the user
+        if user_reviews:
+            # If there are any, raise an error
+            messages.error(request, "You have already left a review!")
+            raise PermissionDenied
 
         if form.is_valid():
             review = form.save(commit=False)
@@ -36,6 +47,7 @@ def ProductDetailView(request, slug):
             review.name = request.user.username
             review.save()
 
+            messages.success(request, "Thank you for leaving a review!")
             return redirect("baseapp:productdetail", slug=slug)
     else:
         form = ProductReviewForm()
@@ -49,6 +61,7 @@ def deleteReview(request, pk):
     if request.method == "POST":
         review.delete()
 
+        messages.success(request, "Review deleted!")
         return redirect("baseapp:productdetail", review.item.slug)
 
     context = {"item": review}
@@ -66,6 +79,7 @@ def editReview(request, pk):
         if form.is_valid():
             form.save()
 
+        messages.success(request, "Review edited!")
         return redirect("baseapp:productdetail", review.item.slug)
 
     context = {"form": form, "review": review}
