@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "crispy_forms",
-    "ckeditor",
     "widget_tweaks",
     "baseapp",
     "newsletter",
