@@ -1,7 +1,8 @@
+""" System Module """
 from django.contrib import messages
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, TemplateView
 from cart.models import Item
 from .models import ProductReview
@@ -10,19 +11,24 @@ from .forms import ProductReviewForm
 
 class HomeView(ListView):
     """Home page view"""
+
     model = Item
     paginate_by = 8
-    template_name = 'home.html'
+    template_name = "home.html"
 
 
 class AboutView(ListView):
     """About page view"""
+
     model = Item
-    template_name = 'about.html'
+    template_name = "about.html"
+
 
 class PrivacyPolicy(TemplateView):
     """Privacy policy page view"""
-    template_name = 'privacypolicy.html'
+
+    template_name = "privacypolicy.html"
+
 
 def ProductDetailView(request, slug):
     """Function view used for detail page functionality/display."""
@@ -30,7 +36,6 @@ def ProductDetailView(request, slug):
 
     # Get the reviews posted by the user for the item
     user_reviews = item.reviews.filter(name=request.user.username)
-    
 
     if request.method == "POST":
         form = ProductReviewForm(request.POST)
@@ -53,6 +58,7 @@ def ProductDetailView(request, slug):
         form = ProductReviewForm()
 
     return render(request, "productdetail.html", {"item": item, "form": form})
+
 
 def deleteReview(request, pk):
     """Function view used for deleting review."""

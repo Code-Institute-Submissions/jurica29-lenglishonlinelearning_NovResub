@@ -10,5 +10,3 @@ class ProductReviewAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ProductReview, ProductReviewAdmin)
-
-

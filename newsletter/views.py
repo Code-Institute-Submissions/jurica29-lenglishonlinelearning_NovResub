@@ -1,8 +1,9 @@
+""" System Module """
+import os
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from mailchimp_marketing import Client
 from mailchimp_marketing.api_client import ApiClientError
-import os
 
 if os.path.exists("env.py"):
     import env

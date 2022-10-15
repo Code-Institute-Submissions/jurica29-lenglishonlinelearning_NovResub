@@ -1,9 +1,12 @@
+""" System Module """
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 
 
 class BillingAddressForm(forms.Form):
+    """Billing Address form"""
+
     street_address = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -57,6 +60,7 @@ class BillingAddressForm(forms.Form):
 
 
 class CouponForm(forms.Form):
+    """Coupon form"""
     code = forms.CharField(
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Coupon code"}

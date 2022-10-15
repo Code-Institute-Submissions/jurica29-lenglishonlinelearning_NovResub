@@ -15,7 +15,4 @@ class ProductReviewForm(forms.ModelForm):
         widgets = {
             "review_text": forms.Textarea(attrs={"rows": 10, "cols": 80}),
         }
-        labels = {
-            "review_text": ""
-        }
-
+        labels = {"review_text": ""}

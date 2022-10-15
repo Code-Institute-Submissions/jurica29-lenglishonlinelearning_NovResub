@@ -1,6 +1,10 @@
+""" System Module """
+import os
+import random
+import string
+import stripe
 from django.contrib import messages
 from django.conf import settings
-from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from allauth.account.decorators import login_required
@@ -10,10 +14,6 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import View, DetailView, ListView
 from .models import Item, Order, OrderItem, BillingAddress, Payment, Coupon
 from .forms import BillingAddressForm, CouponForm
-import stripe
-import random
-import string
-import os
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -61,6 +61,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
     """View for order summary page"""
 
     def get(self, *args, **kwargs):
+        """View for order summary page"""
         try:
             current_order = Order.objects.get(user=self.request.user, ordered=False)
             context = {"object": current_order}
@@ -104,26 +105,11 @@ def remove_single_item(request, slug):
         return redirect("baseapp:productdetail", slug=slug)
 
 
-class OrderSummaryView(LoginRequiredMixin, View):
-    """View for order summary page"""
-
-    def get(self, *args, **kwargs):
-        try:
-            current_order = Order.objects.get(user=self.request.user, ordered=False)
-            context = {"object": current_order}
-            return render(self.request, "summary.html", context)
-
-        except ObjectDoesNotExist:
-            messages.warning(self.request, "You do not have an active order.")
-            return redirect("/")
-
-        return render(self.request, "summary.html", context)
-
-
 class BillingAddressView(View):
     """View for billing address"""
 
     def get(self, *args, **kwargs):
+        """Function for billing address"""
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
             form = BillingAddressForm()
@@ -183,6 +169,7 @@ class addCouponView(View):
     """Add coupon functionality"""
 
     def post(self, *args, **kwargs):
+        """Post function"""
         form = CouponForm(self.request.POST or None)
         if form.is_valid():
             try:
@@ -201,6 +188,7 @@ class PaymentView(View):
     """Class for payment view"""
 
     def get(self, *args, **kwargs):
+        """Function"""
         order = Order.objects.get(user=self.request.user, ordered=False)
         if order.billing_address:
             context = {
@@ -214,6 +202,7 @@ class PaymentView(View):
             return redirect("cart:billing-address")
 
     def post(self, *args, **kwargs):
+        """Function"""
         order = Order.objects.get(user=self.request.user, ordered=False)
         token = self.request.POST.get("stripeToken")
         amount = int(order.total_price() * 100)
@@ -284,5 +273,6 @@ class PaymentView(View):
 
 
 def MyOrders(request):
+    """View for order history page"""
     orders = Order.objects.filter(user=request.user, ordered=True).order_by("-id")
     return render(request, "order-history.html", {"orders": orders})
