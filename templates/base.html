@@ -1,149 +1,119 @@
-<!-- Base html code for use across pages -->
-{% load static %}
-{% load widget_tweaks %}
-{% load cart_template_tag %}
-
+<!-- Base html code for use across pages --> 
+{% load static %} {% load widget_tweaks %} {% load cart_template_tag %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <!-- Website description -->
-        <meta name="description" content="Find the best English language lessons and courses tailored to your needs."/>
-        <!-- Author -->
-        <meta name="author" content="Jurica Puljiz"/>
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}"/>
-        <!-- Title -->
-        <title>{% block title %} {% endblock title %}</title>
-        <!-- Core CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
-        <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
-        <!-- JS-->
-        <script src="https://js.stripe.com/v3/"></script>
-        <script src="https://kit.fontawesome.com/c7dbda0798.js" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-1 ms-lg-2">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'baseapp:home' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'baseapp:about' %}">About</a></li>
-
-                        {% if user.is_authenticated %}
-                        <form class="d-flex">
-                            <a href="{% url 'cart:summary' %}" class="btn btn-outline-dark" type="submit">
-                                <i class="bi-cart-fill me-1"></i>
-                                Cart
-                                <span class="badge bg-dark text-white ms-1 rounded-pill">{{ user|cart_count }}</span>
-                            </a>
-                        </form>
-
-                    <li class="nav-item dropdown d-flex">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><strong>{{ user.get_username }}</strong></a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                            <li><a class="dropdown-item" href="{% url 'cart:order-history' %}">My orders</a></li>
-                            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
-                        </ul>
-                    </li>
-
-                    {% else %}
-                    <li class="nav-item"><a class="btn btn-outline-dark" aria-current="page" href="{% url 'account_login' %}">Sign In</a>
-                    </li>
-                    {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </nav>
-<!-- Hero -->
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active carouselmodifier">
-        <img src="{% static 'images/1.jpg' %}" class="d-block w-100" alt="London Bridge">
-        <span class="carousel-caption text-white mb-0">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Website description -->
+    <meta name="description" content="Find the best English language lessons and courses tailored to your needs." />
+    <!-- Author -->
+    <meta name="author" content="Jurica Puljiz" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}" />
+    <!-- Title -->
+    <title>{% block title %} {% endblock title %}</title>
+    <!-- Core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <!-- JS-->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://kit.fontawesome.com/c7dbda0798.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-1 ms-lg-2">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'baseapp:home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'baseapp:about' %}">About</a>
+            </li> {% if user.is_authenticated %} <form class="d-flex">
+              <a href="{% url 'cart:summary' %}" class="btn btn-outline-dark" type="submit">
+                <i class="bi-cart-fill me-1"></i> Cart <span class="badge bg-dark text-white ms-1 rounded-pill">{{ user|cart_count }}</span>
+              </a>
+            </form>
+            <li class="nav-item dropdown d-flex">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <strong>{{ user.get_username }}</strong>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li>
+                  <a class="dropdown-item" href="{% url 'cart:order-history' %}">My orders</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
+                </li>
+              </ul>
+            </li> {% else %} <li class="nav-item">
+              <a class="btn btn-outline-dark" aria-current="page" href="{% url 'account_login' %}">Sign In</a>
+            </li> {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Hero -->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active carouselmodifier">
+          <img src="{% static 'images/1.jpg' %}" class="d-block w-100" alt="London Bridge">
+          <span class="carousel-caption text-white mb-0">
             <h1 class="display-4 fw-bold">Lenglish Online Learning</h1>
             <p class="lead fw-bolder fst-italic text-white mb-0">English language courses and lessons tailored to your needs!</p>
-        </span>
+          </span>
+        </div>
       </div>
     </div>
-  </div>
-<!-- Hero end-->
-        {% block content %}
-
-        {% endblock %}
-        <!-- Footer with newsletter and social media icons -->
-        <footer class="py-5 bg-dark">
-                        <!-- Newsletter using MailChimp-->
-                        <section class="home-newsletter mb-2">
-                            <div class="container mt-1">
-                                <div class="row justify-content-center">
-                                    <div class="col-sm-auto col-md-auto col-lg-auto">
-                                        <div class="single">
-                                            <h6 class="text-white text-center">Subscribe for updates:</h6>
-                                            <form method="post" action="{% url 'newsletter:subscribeToNewsLetter' %}">
-                                            {% csrf_token %}
-                                            <div class="input-group">
-                                                <input type="email" name="email" class="form-control" placeholder="Your Email">
-                                                <span class="input-group-btn">
-                                                <button class="btn btn-secondary" type="submit">Subscribe</button>
-                                                </span>
-                                            </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-            <!-- Social media icons -->
-            <div class="text-center">
-
-             <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook page (opens in a new tab)" class="btn btn-secondary"><i class="fab fa-facebook-f"></i>
-            </a>
-
-            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Visit our Instagram page (opens in a new tab)"a class="btn btn-secondary"><i class="fab fa-instagram"></i>
-            </a>
-
-            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="Visit our Linkedin page (opens in a new tab)"a class="btn btn-secondary"><i class="fab fa-linkedin-in"></i>
-            </a>
-
-            <p class="mt-2 text-center text-white"><a class="dropdown-item" href="{% url 'baseapp:privacypolicy' %}">Privacy Policy</a></p>
-            <p class="mt-3 text-center text-white">Copyright &copy; Jurica Puljiz 2022</p>
-
-        </footer>
-
-        
-    {% if messages %}	
-        <div class="message-container">	
-            {% for message in messages %}	
-                {% with message.level as level %}
-                    {% if level == 40 %}	
-                        {% include 'includes/toasts/toast_error.html' %}	
-                    {% elif level == 30 %}	
-                        {% include 'includes/toasts/toast_warning.html' %}	
-                    {% elif level == 25 %}	
-                        {% include 'includes/toasts/toast_success.html' %}	
-                    {% else %}	
-                        {% include 'includes/toasts/toast_info.html' %}	
-                    {% endif %}	
-                {% endwith %}	
-            {% endfor %}	
-        </div>	
-    {% endif %} 
-    
-    {% block postloadjs %}
+    <!-- Hero end--> {% block content %} {% endblock %}
+    <!-- Footer with newsletter and social media icons -->
+    <footer class="py-5 bg-dark">
+      <!-- Newsletter using MailChimp-->
+      <section class="home-newsletter mb-2">
+        <div class="container mt-1">
+          <div class="row justify-content-center">
+            <div class="col-sm-auto col-md-auto col-lg-auto">
+              <div class="single">
+                <h6 class="text-white text-center">Subscribe for updates:</h6>
+                <form method="post" action="{% url 'newsletter:subscribeToNewsLetter' %}"> {% csrf_token %} <div class="input-group">
+                    <input type="email" name="email" class="form-control" placeholder="Your Email">
+                    <span class="input-group-btn">
+                      <button class="btn btn-secondary" type="submit">Subscribe</button>
+                    </span>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </section>
+      <!-- Social media icons -->
+      <div class="text-center">
+        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook page (opens in a new tab)" class="btn btn-secondary">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Visit our Instagram page (opens in a new tab)" a class="btn btn-secondary">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="Visit our Linkedin page (opens in a new tab)" a class="btn btn-secondary">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <p class="mt-2 text-center text-white">
+          <a class="dropdown-item" href="{% url 'baseapp:privacypolicy' %}">Privacy Policy</a>
+        </p>
+        <p class="mt-3 text-center text-white">Copyright &copy; Jurica Puljiz 2022</p>
+    </footer> {% if messages %} <div class="message-container"> {% for message in messages %} {% with message.level as level %} {% if level == 40 %} {% include 'includes/toasts/toast_error.html' %} {% elif level == 30 %} {% include 'includes/toasts/toast_warning.html' %} {% elif level == 25 %} {% include 'includes/toasts/toast_success.html' %} {% else %} {% include 'includes/toasts/toast_info.html' %} {% endif %} {% endwith %} {% endfor %} </div> {% endif %} {% block postloadjs %}
     <!-- JS script -->
-    <script src="{% static 'js/script.js' %}"></script>
-    {% endblock %}
-    
-    </body>
+    <script src="{% static 'js/script.js' %}"></script> {% endblock %}
+  </body>
 </html>

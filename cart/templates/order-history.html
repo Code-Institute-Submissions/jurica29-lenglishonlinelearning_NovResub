@@ -1,66 +1,40 @@
-<!-- Order history page -->
-{% extends 'base.html' %}
-{% load static %}
- 
-{% block title %}  My orders {% endblock title %}
- 
-{% block content %}
+<!-- Order history page --> 
+{% extends 'base.html' %} {% load static %} {% block title %} My orders {% endblock title %} {% block content %}
 <!-- Coupon code message for users -->
 <div class="alert alert-secondary text-center mb-0" role="alert">
-  <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order!</p>
-</div>
-
-{% if orders  %}
-
-<div class="container my-5">
+  <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order! </p>
+</div> {% if orders  %} <div class="container my-5">
   <div class="shadow-5 rounded-4 overflow-hidden">
     <h2 class="font-weight-bold text-uppercase text-center">My orders</h2>
     <table class="table align-middle mb-0 bg-white">
       <thead class="bg-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Order Reference</th>
-            <th scope="col">Qty - Lessons Ordered</th>
-            <th scope="col">Date Ordered</th>
-            <th scope="col">Total </th>
-          </tr>
-      </thead>
-      <tbody>
-        {% for order in orders %}
         <tr>
+          <th scope="col">#</th>
+          <th scope="col">Order Reference</th>
+          <th scope="col">Qty - Lessons Ordered</th>
+          <th scope="col">Date Ordered</th>
+          <th scope="col">Total </th>
+        </tr>
+      </thead>
+      <tbody> {% for order in orders %} <tr>
           <th scope="row">{{ forloop.counter }}</th>
           <td> {{ order.order_ref }} </td>
-          <td>
-            {% for item in order.items.all %} 
-              {{ item }} 
-            {% if not forloop.last %}| 
-            {% endif %}
-            {% endfor %}
-          </td>
+          <td> {% for item in order.items.all %} {{ item }} {% if not forloop.last %}| {% endif %} {% endfor %} </td>
           <td> {{ order.ordered_date}} </td>
           <td>€{{ order.total_price|floatformat }}</td>
         </tr>
-      </tbody>
-      {% endfor %}
+      </tbody> {% endfor %}
     </table>
   </div>
-</div>
-
-{% else %}
-
-<div class="d-flex align-items-center justify-content-center mt-5 mb-5">
+</div> {% else %} <div class="d-flex align-items-center justify-content-center mt-5 mb-5">
   <div>
     <div class="alert alert-warning" role="alert">
-      <h3 class="text-center">Sorry, you haven't placed any orders yet. :(</h4> 
+      <h3 class="text-center">Sorry, you haven't placed any orders yet. :( </h4>
         <h6 class="text-center">Place an order by going back to home page and adding your items to the cart.</h6>
         <p class="text-center"> Please contact me if you think this is an error. </p>
-      <div class="d-flex align-items-center justify-content-center">
-      <a href="{% url 'baseapp:home' %}" class="btn btn-warning">Home</a>
-      </div>
+        <div class="d-flex align-items-center justify-content-center">
+          <a href="{% url 'baseapp:home' %}" class="btn btn-warning">Home</a>
+        </div>
     </div>
-</div>
-</div>
-
- {% endif %}
-
-{% endblock %}
+  </div>
+</div> {% endif %} {% endblock %}

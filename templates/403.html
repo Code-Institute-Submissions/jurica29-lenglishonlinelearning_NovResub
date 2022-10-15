@@ -1,19 +1,13 @@
-<!-- Error displayed when user tries to submit more than one review -->
-{% extends 'base.html' %}
-{% load static %}
- 
-{% block content %}
-
+<!-- Error displayed when user tries to submit more than one review --> 
+{% extends 'base.html' %} {% load static %} {% block content %} 
 <div class="d-flex align-items-center justify-content-center mt-5 mb-5">
-    <div>
-      <div class="alert alert-warning" role="alert">
-        <h4 class="text-center">You have already submitted a review for this item <strong>{{ user.get_username }}</strong>!</h4>
-        <p class="text-center mb-1">Return to home page to check other courses/lessons.</p>
-        <div class="d-flex align-items-center justify-content-center">
+  <div>
+    <div class="alert alert-warning" role="alert">
+      <h4 class="text-center">You have already submitted a review for this item <strong>{{ user.get_username }}</strong>! </h4>
+      <p class="text-center mb-1">Return to home page to check other courses/lessons.</p>
+      <div class="d-flex align-items-center justify-content-center">
         <a href="{% url 'baseapp:home' %}" class="btn btn-warning">Home</a>
-        </div>
       </div>
+    </div>
   </div>
-  </div>
-
-  {% endblock %}
+</div> {% endblock %}

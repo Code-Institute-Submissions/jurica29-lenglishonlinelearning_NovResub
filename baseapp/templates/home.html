@@ -1,43 +1,29 @@
-<!-- Landing page -->
-{% extends 'base.html' %}
-
-{% block title %} Home {% endblock title %}
-
-{% block content %}
-{% load static %}
+<!-- Landing page --> {% extends 'base.html' %} {% block title %} Home {% endblock title %} {% block content %} {% load static %} 
 <div class="alert alert-secondary text-center mb-0" role="alert">
-    <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order!</p>
-  </div>
+    <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order! </p>
+</div>
 <section class="py-5">
-    <div class="container px-2 px-lg-5 mt-5">
-        <div class="row gx-2 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            {% for item in object_list %}
-            <div class="pcard col mb-5">
-                <div class="card shadow h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="{{ item.image.url }}" alt="item image" />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder text-secondary">{{ item.title }}</h5>
-                            <!-- Product price-->
-                            <p>€{{ item.price|floatformat }}</p>
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <a href="{{ item.get_item_url }}" class="btn btn-secondary stretched-link">{{ item.get_category_display }}</a>
-                        </div>
-                    </div>
-                </div>
+  <div class="container px-2 px-lg-5 mt-5">
+    <div class="row gx-2 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"> {% for item in object_list %} <div class="pcard col mb-5">
+        <div class="card shadow h-100">
+          <!-- Product image-->
+          <img class="card-img-top" src="{{ item.image.url }}" alt="item image" />
+          <!-- Product details-->
+          <div class="card-body p-4">
+            <div class="text-center">
+              <!-- Product name-->
+              <h5 class="fw-bolder text-secondary">{{ item.title }}</h5>
+              <!-- Product price-->
+              <p>€{{ item.price|floatformat }}</p>
             </div>
-            {% endfor %}
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+              <a href="{{ item.get_item_url }}" class="btn btn-secondary stretched-link">{{ item.get_category_display }}</a>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
-
-{% endblock %}
-    
-
+      </div> {% endfor %} </div>
+  </div>
+</section> {% endblock %}

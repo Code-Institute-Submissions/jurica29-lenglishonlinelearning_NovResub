@@ -1,22 +1,11 @@
-<!-- Custom error 404/500 page -->
-{% extends 'base.html' %}
-
-{% block title %} Error {% endblock title %}
-
-{% block content %}
-{% load static %}
-
-
-    <div class="d-flex align-items-center justify-content-center vh-100">
-        <div class="text-center">
-            <h1 class="display-1 fw-bold">You've got lost!</h1>
-            <p class="fs-3"> <span class="text-danger">Oops!</span> Page not found.</p>
-            <p class="lead">
-                The page you’re looking for doesn’t exist.
-              </p>
-            <a href="{% url 'baseapp:home' %}" class="btn btn-secondary">Go Home</a>
-        </div>
-    </div>
-
-
-{% endblock %}
+<!-- Custom error 404/500 page --> 
+{% extends 'base.html' %} {% block title %} Error {% endblock title %} {% block content %} {% load static %} <div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">You've got lost!</h1>
+        <p class="fs-3">
+          <span class="text-danger">Oops!</span> Page not found.
+        </p>
+        <p class="lead"> The page you’re looking for doesn’t exist. </p>
+        <a href="{% url 'baseapp:home' %}" class="btn btn-secondary">Go Home</a>
+      </div>
+    </div> {% endblock %}

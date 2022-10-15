@@ -1,4 +1,4 @@
-/* Basic general styling starts here */ 
+/* Basic general styling starts here */
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -11,20 +11,16 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
-/* Hover effect for items on the home page */ 
+/* Hover effect for items on the home page */
 .pcard:hover {
   transform: scale(1.1);
 }
-
 .pcard:hover {
   transform: scale(1.1);
 }
-
 .pcard {
   transition: transform 0.2s ease;
 }
-
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -32,58 +28,46 @@ hr {
   border: 0;
   opacity: 0.25;
 }
-
 hr:not([size]) {
   height: 1px;
 }
-
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
 }
-
 h1, .h1 {
   font-size: calc(1.375rem + 1.5vw);
 }
-
-/* Image carousel style */ 
+/* Image carousel style */
 .carousel img {
   height: 500px;
   width: 100%;
   object-fit: cover;
   object-position: center;
 }
-
 .carouselmodifier {
   height: 350px;
 }
-
-/* Style for image on product page */ 
+/* Style for image on product page */
 #productimage {
   max-width: 100%;
 }
-
 /* Bootstrap toasts CSS adapted from BoutiqueAdo */
-
 .message-container {
   position: fixed;
   top: 72px;
   right: 15px;
 }
-
 .custom-toast {
   overflow: visible;
   color: black;
 }
-
 .toast-capper {
   height: 3px;
 }
-
 /* Style for stripe widget */
-
 #stripeBtnLabel {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-size: 16px;
@@ -94,7 +78,6 @@ h1, .h1 {
   font-weight: 500;
   display: block;
 }
- 
 #stripeBtn {
   border: none;
   border-radius: 4px;
@@ -115,32 +98,27 @@ h1, .h1 {
   -webkit-transition: all 150ms ease;
   transition: all 150ms ease;
   float: left;
-  width: 100%
+  width: 100% 
 }
- 
 button:hover {
   transform: translateY(-1px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
   background-color: #43458b;
 }
- 
 .stripe-form {
   padding: 5px 30px;
 }
- 
 #card-errors {
   height: 20px;
   padding: 4px 0;
   color: #fa755a;
 }
- 
 .stripe-form-row {
   width: 100%;
   float: left;
   margin-top: 5px;
   margin-bottom: 5px;
-} 
- 
+}
 .StripeElement {
   box-sizing: border-box;
   height: 40px;
@@ -152,42 +130,37 @@ button:hover {
   -webkit-transition: box-shadow 150ms ease;
   transition: box-shadow 150ms ease;
 }
-
 .PrivateStripeElement {
-margin: 0px !important; 
-padding: 0px !important; 
-border: none !important; 
-display: block !important; 
-background: transparent !important; 
-position: relative !important; 
-opacity: 1 !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  border: none !important;
+  display: block !important;
+  background: transparent !important;
+  position: relative !important;
+  opacity: 1 !important;
 }
-
 #iframe {
-  border: none !important; 
-  margin: 0px !important; 
-  padding: 0px !important; 
-  width: 1px !important; 
-  min-width: 100% !important; 
-  overflow: hidden !important; 
-  display: block !important; 
+  border: none !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  width: 1px !important;
+  min-width: 100% !important;
+  overflow: hidden !important;
+  display: block !important;
   height: 19.2px;
 }
-
 .PrivateStripeElement-input {
-  border: none !important; 
-  display: block !important; 
-  position: absolute !important; 
-  height: 1px !important; 
-  top: 0px !important; 
-  left: 0px !important; 
-  padding: 0px !important; 
-  margin: 0px !important; 
-  width: 100% !important; 
-  opacity: 0 !important; 
-  background: transparent !important; 
-  pointer-events: none !important; 
+  border: none !important;
+  display: block !important;
+  position: absolute !important;
+  height: 1px !important;
+  top: 0px !important;
+  left: 0px !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  width: 100% !important;
+  opacity: 0 !important;
+  background: transparent !important;
+  pointer-events: none !important;
   font-size: 16px !important;
 }
-
-
