@@ -44,7 +44,7 @@
       </div>
       <!-- Looping over reviews. --> {% for review in item.reviews.all %} <div class="col-lg-7 col-md-8 col-sm-12 mt-3">
         <blockquote class="blockquote bg-light p-3 shadow rounded">
-          <h4 class="text-center">Student | {{ review.name }}</h4>
+          <h4 class="text-center"> <i class="fas fa-user"></i> {{ review.name }}</h4>
           <div>
             <small>{{ review.created_at|date:'d-m-Y H:i' }}</small>
             <div>{{ review.review_text }}</div>
@@ -68,7 +68,7 @@
         <strong>Reviews</strong>
       </h4> {% endif %} {% for review in item.reviews.all %} <div class="align-items-center mt-3">
         <blockquote class="col-lg-12 col-md-12 col-sm-12 bg-light p-3 shadow rounded">
-          <h4 class="text-center">Student | {{ review.name }}</h4>
+          <h4 class="text-center"><i class="fas fa-user"></i> {{ review.name }}</h4>
           <div>
             <small>{{ review.created_at|date:'d-m-Y H:i' }}</small>
             <div>{{ review.review_text }}</div>
