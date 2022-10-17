@@ -1,3 +1,4 @@
+""" System Module """
 import os
 import dj_database_url
 if os.path.exists("env.py"):
@@ -109,13 +110,6 @@ WSGI_APPLICATION = "lenglishonlinelearning.wsgi.application"
 
 
 # Database
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#     }
-# }
 
 if "DATABASE_URL" in os.environ:
     DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
