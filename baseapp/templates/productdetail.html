@@ -42,7 +42,9 @@
           </form>
         </blockquote>
       </div>
-      <!-- Looping over reviews. --> {% for review in item.reviews.all %} <div class="col-lg-7 col-md-8 col-sm-12 mt-3">
+      <!-- Looping over reviews. --> 
+      {% for review in item.reviews.all %} 
+      <div class="col-lg-7 col-md-8 col-sm-12 mt-3">
         <blockquote class="blockquote bg-light p-3 shadow rounded">
           <h4 class="text-center"> <i class="fas fa-user"></i> {{ review.name }}</h4>
           <div>
@@ -55,23 +57,34 @@
                 <a class="btn btn-outline-dark mt-3" href="{% url 'baseapp:editReview' review.id %}">Edit</a>
                 <a class="btn btn-outline-dark mt-3" href="{% url 'baseapp:deleteReview' review.id %}">Delete</a>
               </div>
-            </div> {% endif %}
+            </div> 
+            {% endif %}
           </div>
         </blockquote>
-      </div> {% endfor %} {% else %}
+      </div> 
+      {% endfor %} 
+      {% else %}
       <!-- Message displayed for users who are not registered or logged in. -->
       <blockquote class="blockquote bg-light p-3 shadow rounded mt-2">
         <p>You can't leave reviews if you are not a registered user. Don't have an account? Create one <a href="{% url 'account_signup' %}">Here</a>! </p>
         <p>You already have an account? Login <a href="{% url 'account_login' %}">Here</a>! </p>
       </blockquote>
-      <!-- Looping over reviews. --> {% if item.reviews.all %} <h4 class="text-center">
+      <!-- Looping over reviews. --> 
+      {% if item.reviews.all %} 
+      <h4 class="text-center">
         <strong>Reviews</strong>
-      </h4> {% endif %} {% for review in item.reviews.all %} <div class="align-items-center mt-3">
+      </h4> {% endif %} 
+      {% for review in item.reviews.all %} 
+      <div class="align-items-center mt-3">
         <blockquote class="col-lg-12 col-md-12 col-sm-12 bg-light p-3 shadow rounded">
           <h4 class="text-center"><i class="fas fa-user"></i> {{ review.name }}</h4>
-          <div>
             <small>{{ review.created_at|date:'d-m-Y H:i' }}</small>
             <div>{{ review.review_text }}</div>
-        </blockquote> {% endfor %} {% endif %}
+        </blockquote> 
+        {% endfor %} 
+        {% endif %}
       </div>
-</section> {% endblock %}
+    </div>
+  </div>
+</section> 
+{% endblock %}

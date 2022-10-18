@@ -24,21 +24,23 @@
           <div class="col-12 col-md-8 col-lg-6">
             <div class="card bg-white mb-4 mt-4">
               <div class="card-body p-5 shadow-lg">
-                <form class="mb-3 mt-md-4">
+                <div class="mb-3 mt-md-4">
                   <h2 class="fw-bold mb-2 text-uppercase text-center">SIGN IN</h2>
                   <p class="mb-5 text-center">Please enter your login and password to access the purchase options.</p>
                   <div class="mb-3">
                     <label for="email" class="form-label ">Email address/Username:</label>
                     <input class="form-control" type="text" name="login" placeholder="Username or e-mail" autocomplete="email" class="textinput textInput" required="" id="id_login">
+                  </input>
                   </div>
                   <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>
                     <input class="form-control" type="password" name="password" placeholder="Password" autocomplete="current-password" class="textinput textInput" required="" id="id_password">
+                    </input>
                   </div>
                   <div class="d-grid">
                     <button class="btn btn-outline-dark" type="submit">{% trans "Sign In" %}</button>
                   </div>
-                </form>
+                </div>
                 <div>
                   <p class="mb-0  text-center">Don't have an account? <a href="{% url 'account_signup' %}" class="text-secondary fw-bold">{% trans "Sign Up" %}</a></p>
                 </div>
