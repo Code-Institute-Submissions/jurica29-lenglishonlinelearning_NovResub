@@ -157,7 +157,10 @@ button:hover {
 }
 
 /* Table style */
-table {
-  table-layout: fixed;
-  word-wrap: break-word;
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  table {
+    table-layout: fixed;
+    word-wrap: break-word;
+  }
 }
