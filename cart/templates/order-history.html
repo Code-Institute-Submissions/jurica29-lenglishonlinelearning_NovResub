@@ -3,7 +3,9 @@
 <!-- Coupon code message for users -->
 <div class="alert alert-secondary text-center mb-0" role="alert">
   <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order! </p>
-</div> {% if orders  %} <div class="container my-5">
+</div> 
+{% if orders  %} 
+<div class="container my-5">
   <div class="shadow-5 rounded-4 overflow-hidden">
     <h2 class="font-weight-bold text-uppercase text-center">My orders</h2>
     <table class="table align-middle mb-4 bg-white">
@@ -26,7 +28,9 @@
       </tbody> {% endfor %}
     </table>
   </div>
-</div> {% else %} <div class="d-flex align-items-center justify-content-center mt-5 mb-5">
+</div> 
+{% else %} 
+<div class="d-flex align-items-center justify-content-center mt-5 mb-5">
   <div>
     <div class="alert alert-warning" role="alert">
       <h3 class="text-center">Sorry, you haven't placed any orders yet. :( </h4>

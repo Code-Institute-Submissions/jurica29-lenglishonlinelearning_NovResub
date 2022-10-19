@@ -155,3 +155,9 @@ button:hover {
   pointer-events: none !important;
   font-size: 16px !important;
 }
+
+/* Table style */
+table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
