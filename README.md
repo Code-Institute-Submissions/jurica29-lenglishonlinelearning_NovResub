@@ -151,7 +151,7 @@ Throughout development process of this site, agile development approach was take
 
  * Users can also subscribe to the newsletter to receive all offers in their email box. Subscription box is available in the footer area of the website and provided by MailChimp.
 
- <details><summary>B2C model</summary>
+ <details><summary>Newsletter signup</summary>
       <img src="static/readme/newsletter.jpg" width="500">
  </details>
 
