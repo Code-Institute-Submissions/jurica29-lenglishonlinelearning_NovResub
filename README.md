@@ -167,7 +167,7 @@ Throughout development process of this site, agile development approach was take
       * Home, About and Sign In.
 
       <details><summary>Navbar</summary>
-      <img src="static/readme/navbar&hero.jpg" width="500">
+      <img src="static/readme/navbar&hero.jpg" width="600">
       </details>
 
       <details><summary>Navbar mobile</summary>
@@ -381,6 +381,10 @@ No errors/warnings were found when passing JS code through the JS Hint validator
 <details><summary>The result screenshot - JS file 1</summary> <img src="static/readme/jsvalidation.jpg"></details> 
 
 <details><summary>The result screenshot - JS file 2</summary> <img src="static/readme/jsvalidation2.jpg"></details> 
+
+#### Lighthouse testing results
+
+<details><summary>Test results</summary> <img src="static/readme/lighthouse.jpg"></details> 
 
 ## Setting up Django environment.
 

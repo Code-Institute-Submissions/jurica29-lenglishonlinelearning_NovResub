@@ -85,11 +85,5 @@ Ensure that users can be redirected to order history after the payment is comple
 
 Ensure that users can see their past orders.
 
-#### Lighthouse testing results
-
-  <details><summary>Test results</summary>
-      <img src="static/readme/testresults.jpg" width="500">
-  </details>
-
 
 
