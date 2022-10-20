@@ -93,7 +93,7 @@ Throughout development process of this site, agile development approach was take
   * Users should be able to easily register/login/logout.
   * Only registered users can purchase lessons/courses, submit product reviews and view the order history.
   * Unregistered users can just view lessons/courses and reviews.
-  * Every site visitor can access about page in order to contact site admin or find out how does the site and process of purchase/teaching function.
+  * Every site visitor can access about page in order to contact site admin or find out how does the site work.
 
 ### SKELETON
   **Wireframe:**
