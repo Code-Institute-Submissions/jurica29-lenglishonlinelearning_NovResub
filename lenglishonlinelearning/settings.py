@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "")
 DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu71.gitpod.io"
+    "https://lenglishonlinelearning.herokuapp.com", "https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu71.gitpod.io"
 ]
 
 ALLOWED_HOSTS = ["lenglishonlinelearning.herokuapp.com", "localhost"]
@@ -174,8 +174,8 @@ if "USE_AWS" in os.environ:
     # Bucket Config
     AWS_STORAGE_BUCKET_NAME = "lenglishonlinelearning"
     AWS_S3_REGION_NAME = "eu-west-1"
-    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID").strip("\n")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY").strip("\n")
     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 
     # Static and media files
