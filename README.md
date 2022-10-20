@@ -317,6 +317,12 @@ Throughout development process of this site, agile development approach was take
     <img src="static/readme/orderhistory.jpg" width="500">
     </details>
 
+  * Custom 404/500 error page
+
+    <details><summary>Custom error page</summary>
+    <img src="static/readme/customerrorpage.jpg" width="500">
+    </details>
+
 ### Features Left to Implement
 
   Due to the amount of time given to complete this project, I was unable to implement following planned features:
