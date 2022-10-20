@@ -69,7 +69,7 @@ Throughout development process of this site, agile development approach was take
 
   **Navigation menu** - The navigation menu is clear and consistent for all visitors and users.
 
-  **Home page** - Home page enables visitors/users to easily switch between 2 categories of posts or use navigation menu functions.
+  **Home page** - Home page enables visitors/users to easily browse lessons/courses offered.
 
   **Register/Login/Logout page** - Site visitors can register at register page or sign in at login page.
 
@@ -322,7 +322,6 @@ Throughout development process of this site, agile development approach was take
   Due to the amount of time given to complete this project, I was unable to implement following planned features:
 
   * Email confirmation for orders
-  * Site pagination (not needed at the moment)
   * Profile page which enables users to save their details (like billing address)
   * Add another page for video learning content for purchase
   * Add calendar system for booking lessons.
@@ -340,7 +339,7 @@ The site is tested to ensure all pages are displayed appropriately in all screen
 ### Errors encountered during development
 
   1) Minor HTML errors listed above that appeared during validation.
-  2) Minor issue with order history table resposniveness on smallest screens but it seems to be working fine now.
+  2) Minor issue with order history table responsiveness on smallest screens but it seems to be working fine now.
   3) Deployment was a bit problematic but fixed it in the end with the help of tutor support.
   4) Order confirmation email could not be implemented due to some issues, so I've decided to leave it out in the end.
   5) Minor bug where coupon code needs to be put in prior to any billing address details.
@@ -362,7 +361,8 @@ However, switching to PEP8 in order to check if any major errors are present and
 This has caused 20 warnings "line too long" showing up. No other errors or warnings were shown.
 
 Several errors were shown when "Billing address page" passed through the HTML validator due to Django generated elements.
-Other html pages were clean.
+
+All the other HTML pages were clean from errors.
 
 <details><summary>The result screenshot - html</summary> <img src="static/readme/htmlvalidation.jpg"></details> 
 
