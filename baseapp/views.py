@@ -1,12 +1,14 @@
 """ System Module """
 from django.contrib import messages
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, TemplateView
 from cart.models import Item
 from .models import ProductReview
 from .forms import ProductReviewForm
+
 
 
 class HomeView(ListView):
@@ -59,7 +61,7 @@ def ProductDetailView(request, slug):
 
     return render(request, "productdetail.html", {"item": item, "form": form})
 
-
+@login_required(login_url='/accounts/login/')
 def deleteReview(request, pk):
     """Function view used for deleting review."""
     review = ProductReview.objects.get(id=pk)
@@ -74,7 +76,7 @@ def deleteReview(request, pk):
 
     return render(request, "deletereview.html", context)
 
-
+@login_required(login_url='/accounts/login/')
 def editReview(request, pk):
     """Function view used for editing review."""
     review = ProductReview.objects.get(id=pk)
