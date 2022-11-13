@@ -156,11 +156,30 @@ button:hover {
   font-size: 16px !important;
 }
 
-/* Table style */
+.footer {
+  position:absolute;
+  bottom:0%;
+  width:100vw;
+}
+
+/* Table style for order summary page */
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  table {
+  #summarytable {
     table-layout: fixed;
     word-wrap: break-word;
   }
+
+  #summarytable>:not(caption)>*>* {
+    padding: 2.7rem, 0.5rem;
+  }
+  
+  /* Letter size for table contents on smaller screens at summary page */
+  #price, #number, #itemtitle, #addremove, #discount, #totalprice, #contents {
+    font-size: 11px;
+    font-weight: bolder;
+  }
 }
+
+
+
