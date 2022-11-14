@@ -28,15 +28,18 @@
           </div>
         </blockquote>
       </div>
+    </div>
+  </div>
       <!-- Review -->
-      <div class="col-lg-7 col-md-8 col-sm-12 mt-4">
+      <!-- Only registered/logged in users can submit comments.--> {% if user.is_authenticated %}
+      <div class="col-lg-7 col-md-8 col-sm-12 mt-4 container d-flex align-items-center justify-content-center">
         <blockquote class="blockquote bg-light p-3 shadow-lg">
           <h5 class="text-center">Leave a review:</h5>
           <form method="post">
             <!-- A CSRF token is a secure random token that is used to prevent CSRF attacks. --> {% csrf_token %} <div class="form-group">
               <p class="mb-0 mt-2 font-italic">{% render_field form.review_text class="form-control" placeholder="Your review here.." %}</p>
             </div>
-            <!-- Only registered/logged in users can submit comments.--> {% if user.is_authenticated %} <div class="control text-center">
+             <div class="control text-center">
               <button class="btn btn-outline-dark mt-2">Submit</button>
             </div>
           </form>
@@ -44,7 +47,7 @@
       </div>
       <!-- Looping over reviews. --> 
       {% for review in item.reviews.all %} 
-      <div class="col-lg-7 col-md-8 col-sm-12 mt-3">
+      <div class="col-lg-4 col-md-8 col-sm-12 mt-3 container align-items-center">
         <blockquote class="blockquote bg-light p-3 shadow rounded">
           <h4 class="text-center"> <i class="fas fa-user"></i> {{ review.name }}</h4>
           <div>
@@ -58,14 +61,14 @@
                 <a class="btn btn-outline-dark mt-3" href="{% url 'baseapp:deleteReview' review.id %}">Delete</a>
               </div>
             </div> 
-            {% endif %}
           </div>
-        </blockquote>
-      </div> 
+      {% endif %}
+      </blockquote>
+    </div> 
       {% endfor %} 
       {% else %}
       <!-- Message displayed for users who are not registered or logged in. -->
-      <blockquote class="blockquote bg-light p-3 shadow rounded mt-2">
+      <blockquote class="blockquote bg-light col-lg-3 p-3 shadow rounded mt-2 container align-items-center">
         <p>You can't leave reviews if you are not a registered user. Don't have an account? Create one <a href="{% url 'account_signup' %}">Here</a>! </p>
         <p>You already have an account? Login <a href="{% url 'account_login' %}">Here</a>! </p>
       </blockquote>
@@ -73,18 +76,21 @@
       {% if item.reviews.all %} 
       <h4 class="text-center">
         <strong>Reviews</strong>
-      </h4> {% endif %} 
+      </h4>
+      {% endif %} 
       {% for review in item.reviews.all %} 
-      <div class="align-items-center mt-3">
+  <div>
+    <div>
+      <div class="align-items-center col-lg-4 mt-3 container align-items-center">
         <blockquote class="col-lg-12 col-md-12 col-sm-12 bg-light p-3 shadow rounded">
           <h4 class="text-center"><i class="fas fa-user"></i> {{ review.name }}</h4>
             <small>{{ review.created_at|date:'d-m-Y H:i' }}</small>
             <div>{{ review.review_text }}</div>
         </blockquote> 
-        {% endfor %} 
-        {% endif %}
       </div>
     </div>
   </div>
+{% endfor %} 
+{% endif %}
 </section> 
 {% endblock %}

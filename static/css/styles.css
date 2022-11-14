@@ -159,8 +159,13 @@ button:hover {
 /* Table style for order summary page */
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  #summarytable {
+  #summarytable.table {
     word-wrap: break-word;
+    font-size: 11px !important;
+  }
+
+  .td {
+    font-size: 11px !important;
   }
 }
 
@@ -169,7 +174,10 @@ button:hover {
     #summarytable {
     table-layout: fixed;
     word-wrap: break-word;
-    font-size: 9px;
+    font-size: 9px !important;
+  }
+  .table {
+    font-size: 9px !important;
   }
 }
 
