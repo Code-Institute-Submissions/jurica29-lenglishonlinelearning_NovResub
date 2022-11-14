@@ -156,28 +156,29 @@ button:hover {
   font-size: 16px !important;
 }
 
-/* Table style for order summary page */
+/* Table style fixes for order summary page and order history page */
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   #summarytable.table {
     word-wrap: break-word;
-    font-size: 11px !important;
+    font-size: 14px;
   }
 
-  .td {
-    font-size: 11px !important;
+  .table>:not(caption)>*>* {
+    padding: 0.2rem 0.2rem;
   }
 }
 
-/* Galaxy Fold fix for order summary page*/
+/* Galaxy Fold fixes for order summary page and about page*/
 @media(max-width: 320px){ 
-    #summarytable {
-    table-layout: fixed;
-    word-wrap: break-word;
-    font-size: 9px !important;
+  #summarytable {
+    table-layout: auto;
   }
-  .table {
-    font-size: 9px !important;
+  p#email {
+    font-size: 13px;
+  }
+  .table>:not(caption)>*>* {
+    font-size: 10px;
   }
 }
 
