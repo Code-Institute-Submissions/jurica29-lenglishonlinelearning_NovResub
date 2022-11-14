@@ -160,14 +160,16 @@ button:hover {
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   #summarytable {
-    table-layout: fixed;
     word-wrap: break-word;
   }
-  
-  /* Letter size for table contents on smaller screens at summary page */
-  #price, #number, #itemtitle, #addremove, #discount, #totalprice, #contents {
-    font-size: 11px;
-    font-weight: bolder;
+}
+
+/* Galaxy Fold fix for order summary page*/
+@media(max-width: 320px){ 
+    #summarytable {
+    table-layout: fixed;
+    word-wrap: break-word;
+    font-size: 9px;
   }
 }
 

@@ -5,9 +5,8 @@
   <p class="fst-italic">Special offer this week! Redeem code <strong>EnglishOnly</strong> while shopping and get 5 EUR off from any order! </p>
 </div> {% if object.items.all  %} 
 <div class="mt-4">
-  <table class="table-responsive align-middle mb-4 bg-white">
     <h4 class="font-weight-bold text-uppercase text-center">Order summary</h4>
-   <table id="summarytable" class="table">
+    <table id="summarytable" class="table">
      <thead>
        <tr id="contents">
              <th scope="col">#</th>
@@ -20,25 +19,25 @@
      <tbody>
      {% for order_item in object.items.all %}
        <tr>
-         <th id="number" scope="row">{{ forloop.counter }}</th>
-         <td id="itemtitle">{{ order_item.item.title }}</td>
+         <th scope="row">{{ forloop.counter }}</th>
+         <td>{{ order_item.item.title }}</td>
          {% if order_item.item.discount_price|floatformat %}
-           <td id="price">€{{ order_item.item.discount_price|floatformat }}</td>
+           <td>€{{ order_item.item.discount_price|floatformat }}</td>
            {% else %}
-           <td id="price">€{{ order_item.item.price|floatformat }}</td>
+           <td>€{{ order_item.item.price|floatformat }}</td>
            {% endif %}
 
-         <td id="addremove">
+         <td>
            <a href="{% url 'cart:remove-item' order_item.item.slug %}"><i class="bi bi-dash-circle mr-2"></i></a>
              {{ order_item.quantity }}
              <a href="{% url 'cart:add-to-cart' order_item.item.slug %}"><i class="bi bi-plus-circle mr-2"></i></a>
          </td>
            {% if order_item.item.discount_price|floatformat %}
-           <td id="discount">€{{ order_item.total_discount_item_price|floatformat }}
+           <td>€{{ order_item.total_discount_item_price|floatformat }}
            <span class="badge rounded-pill bg-info ml-2">Saving: €{{ order_item.amount_saved|floatformat }}</span>
            </td>
            {% else %}
-           <td id="totalprice">€{{ order_item.total_item_price|floatformat }}</td>
+           <td>€{{ order_item.total_item_price|floatformat }}</td>
            {% endif %}
        </tr>
      {% endfor %}
