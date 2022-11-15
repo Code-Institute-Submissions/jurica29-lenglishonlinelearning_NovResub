@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "")
 DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://lenglishonlinelearning.herokuapp.com", "https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu74.gitpod.io"
+    "https://lenglishonlinelearning.herokuapp.com", "https://8000-jurica29-lenglishonline-iqa7g6exbp0.ws-eu75.gitpod.io"
 ]
 
 ALLOWED_HOSTS = ["lenglishonlinelearning.herokuapp.com", "localhost"]

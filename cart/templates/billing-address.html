@@ -12,7 +12,7 @@
         {% csrf_token %} 
         <div class="form-floating mb-3">
            {{ form.street_address }}
-           <label for="floatingInput">Street and house number</label>
+           <label>Street and house number</label>
          </div>
          <div class="form-floating mb-3">
            {{ form.apartment_address }}
@@ -20,8 +20,7 @@
          </div>
          <div class="form-floating mb-3">
            {{ form.country }}
-           <div class="invalid-feedback">Please select a valid country</div>
-           <label for="floatingSelect">Select country</label>
+           <label for="floatingSelect">Country</label>
          </div>
          <div class="form-floating mb-3">
            {{ form.zip_code }}

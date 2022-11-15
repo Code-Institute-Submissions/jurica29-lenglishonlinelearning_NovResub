@@ -32,8 +32,6 @@ class BillingAddressForm(forms.Form):
             attrs={
                 "class": "form-control",
                 "id": "floatingSelect",
-                "placeholder": "Select country",
-                "aria-label": "Select country",
             }
         )
     )
@@ -42,7 +40,6 @@ class BillingAddressForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 "class": "form-control",
-                "id": "floatingInput",
                 "placeholder": "Street and house number",
             }
         )
@@ -52,7 +49,7 @@ class BillingAddressForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 "class": "form-control",
-                "id": "floatingInput",
+                "id": "floatingZip",
                 "placeholder": "Zip code",
             }
         )
