@@ -131,6 +131,8 @@ Throughout development process of this site, agile development approach was take
   * GitHub 
   * DevTools 
   * Heroku 
+  * ElephantSQL
+  * Postgres Migration Tool
 
  ### Business and marketing
 
@@ -432,6 +434,12 @@ Once you are connected, you have the option to deploy automatically (the app wil
 $ git clone https://github.com/jurica29/lenglishonlinelearning
 
 Press Enter. Your local clone will be created.
+
+* Database Migration to ElephantSQL
+
+  Following the update received from Heroku on removing free dynos (upgraded to Eco dynos) and charging for database hosting, my database has been moved to ElephantSQL as per instructions provided from Code Institute:
+
+  [Database Migration procedure](https://code-institute-students.github.io/deployment-docs/80-migrating-databases-for-heroku/)
 
 ## Credits
 
