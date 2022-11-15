@@ -48,23 +48,19 @@
       <!-- Looping over reviews. --> 
       {% for review in item.reviews.all %} 
       <div class="col-lg-4 col-md-8 col-sm-12 mt-3 container align-items-center">
-        <blockquote class="blockquote bg-light p-3 shadow rounded">
+        <blockquote class="blockquote bg-light p-3 shadow rounded mb-0">
           <h4 class="text-center"> <i class="fas fa-user"></i> {{ review.name }}</h4>
-          <div>
             <small>{{ review.created_at|date:'d-m-Y H:i' }}</small>
             <div>{{ review.review_text }}</div>
-            <!-- If user is logged in, user can edit or delete reviews via buttons below. --> {% if user.username == review.name %}
-            <!-- Two aligned buttons -->
-            <div class="row">
-              <div class="col-sm-12 text-center">
-                <a class="btn btn-outline-dark mt-3" href="{% url 'baseapp:editReview' review.id %}">Edit</a>
-                <a class="btn btn-outline-dark mt-3" href="{% url 'baseapp:deleteReview' review.id %}">Delete</a>
-              </div>
-            </div> 
-          </div>
+         </blockquote>
+       </div>
+      <!-- If user is logged in, user can edit or delete reviews via buttons below. --> {% if user.username == review.name %}
+       <!-- Two aligned buttons -->
+        <div class="col-sm-12 text-center">
+          <a class="btn btn-outline-secondary mt-3" href="{% url 'baseapp:editReview' review.id %}">Edit</a>
+          <a class="btn btn-outline-secondary mt-3" href="{% url 'baseapp:deleteReview' review.id %}">Delete</a>
+      </div> 
       {% endif %}
-      </blockquote>
-    </div> 
       {% endfor %} 
       {% else %}
       <!-- Message displayed for users who are not registered or logged in. -->
