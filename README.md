@@ -370,9 +370,7 @@ I've tried working with tutor support on this, however there were no solutions t
 
 <details><summary>Django widget generated errors</summary> <img src="static/readme/countryflag.jpg"></details> 
 
-All the other HTML pages were clean from errors.
-
-<details><summary>The result screenshot - html</summary> <img src="static/readme/htmlvalidation.jpg"></details> 
+All the other HTML pages were clean from errors, both source code and links were checked (as per need).
 
 No errors/warnings were found when passing through the official (Jigsaw) validator.
 
